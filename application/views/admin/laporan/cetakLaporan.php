@@ -7,7 +7,7 @@
     <h4 class="text-center mt-2 mb-3" style="font-size: 16px"><b>LAPORAN TRANSAKSI PEMBAYARAN SPP</b></h4>
     <?php if ( $awal != null && $akhir != null) { ?>
         <h4 class="text-center mb-3" style="font-size: 14px"><?= date_indo($awal); ?> - <?= date_indo($akhir); ?></h4>
-    <?php }else{}  ?>
+    <?php } else { } ?>
 	<table class="table table-bordered">
         <tr class="text-center">
             <th style="font-size: 12px">Tanggal Pembayaran</th>        

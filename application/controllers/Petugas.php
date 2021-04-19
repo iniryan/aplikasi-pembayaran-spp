@@ -82,18 +82,18 @@ class Petugas extends CI_Controller
             
             $this->form_validation->set_rules('username', 'Username', 'required|trim', [
                 'required' => 'Username diperlukan!'
-                ]);
+            ]);
                 
             $this->form_validation->set_rules('nama_petugas', 'Nama_Petugas', 'required|trim');
             
             $this->form_validation->set_rules('password', 'Password', 'trim|min_length[8]|matches[password_confirm]', [
                 'min_length' => 'Password terlalu pendek! kurang lebih harus 8 character!',
                 'matches' => 'Password tidak sama! coba lagi!'
-                ]);
+            ]);
                 
             $this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|matches[password]', [
                 'matches' => 'Password tidak sama! coba lagi!'
-                ]);
+            ]);
                 
             if ($this->form_validation->run() == false) {
                 

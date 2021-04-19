@@ -66,8 +66,8 @@ class Siswa extends CI_Controller
 
             $this->form_validation->set_rules('no_telepon', 'No_Telepon', 'required|min_length[12]|max_length[13]', [
                 'required' => 'No. Telepon harus diisi!',
-    			'min_length' => 'No. Telepon harus lebih dari 12 character!',
-    			'max_length' => 'No. Telepon harus kurang dari 13 character!',
+    			'min_length' => 'No. Telepon harus lebih dari sama dengan 12 character!',
+    			'max_length' => 'No. Telepon harus kurang dari sama dengan 13 character!',
             ]);
 
             $this->form_validation->set_rules('id_kelas', 'Kelas', 'required', [
@@ -132,8 +132,8 @@ class Siswa extends CI_Controller
 
             $this->form_validation->set_rules('no_telepon', 'No_Telepon', 'required|min_length[12]|max_length[13]', [
                 'required' => 'No. Telepon harus diisi!',
-    			'min_length' => 'No. Telepon harus lebih dari 12 character!',
-    			'max_length' => 'No. Telepon harus kurang dari 13 character!',
+    			'min_length' => 'No. Telepon harus lebih dari sama dengan 12 character!',
+    			'max_length' => 'No. Telepon harus kurang dari sama dengan 13 character!',
             ]);
 
             $this->form_validation->set_rules('id_kelas', 'Kelas', 'required', [
@@ -155,11 +155,11 @@ class Siswa extends CI_Controller
             else {
                 $data = [
                     'nis' => $this->input->post('nis', true),
-                    'nama_siswa' => $this->input->post('nama_siswa', true),
+                    'nama_siswa' => htmlspecialchars($this->input->post('nama_siswa', true)),
                     'no_telepon' => $this->input->post('no_telepon', true),
                     'id_kelas' => $this->input->post('id_kelas', true),
                     'id_spp' => $this->input->post('id_spp', true),
-                    'alamat' => $this->input->post('alamat', true)
+                    'alamat' => htmlspecialchars($this->input->post('alamat', true))
                 ];
                 
                 $where = [

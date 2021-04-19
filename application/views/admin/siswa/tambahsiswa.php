@@ -41,7 +41,7 @@
                     <?= form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
                 <div class="form-group">
-                    <label for="id_spp">SPP</label>
+                    <label for="id_spp">SPP (Tahun)</label>
                     <select name="id_spp" id="id_spp" class="custom-select form-control" required>
                     <option value="">-- Pilih SPP --</option>
                     <?php foreach($spp as $row) : ?>    

@@ -33,11 +33,7 @@
             </div>
         </div>
         
-        <?php
-            $menu = $this->uri->segment(1);
-            $menu2 = $this->uri->segment(2);
-            $menu3 = $this->uri->segment(3);
-            ?>
+        <?php $menu = $this->uri->segment(1); ?>
 
         <div class="sidebar-menu">
                 <div class="menu-head">
@@ -45,7 +41,7 @@
                 </div>
                 <ul class="nav-pills flex-column">
                     <li>
-                        <a href="<?= base_url('dashboard');?>" class="nav-link <?php if ($menu == 'Dashboard' && $menu2 == null || $menu == 'dashboard' && $menu2 == null ) {echo 'active';} ?>">
+                        <a href="<?= base_url('dashboard');?>" class="nav-link <?php if ($menu == 'Dashboard' || $menu == 'dashboard') {echo 'active';} ?>">
                             <span class="fas fa-home"></span>
                             Dashboard
                         </a>
@@ -109,7 +105,7 @@
                     <li>
                         <a href="" class="nav-link logout" data-toggle="modal" data-target="#Keluar">
                             <span class="fas fa-power-off"></span>
-                            Logout
+                            Keluar
                         </a>
                     </li>
                 </ul>
@@ -128,11 +124,11 @@
         <main>
             <?= $contents ?>
 
-            <div class="modal fade" id="Keluar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="Keluar" tabindex="-1" role="dialog" aria-labelledby="modalKeluar" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Apakah Anda Yakin Ingin Keluar ?</h5>
+                        <h5 class="modal-title" id="modalKeluar">Apakah Anda Yakin Ingin Keluar ?</h5>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
@@ -160,8 +156,8 @@
 <script src="<?= base_url('assets/'); ?>bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url('assets/'); ?>moment/moment.min.js"></script>
 <script src="<?= base_url('assets/'); ?>daterangepicker/daterangepicker.js"></script>
-<script src="<?= base_url('assets/')?>datatables/jquery.dataTables.min.js"></script>
-<script src="<?= base_url('assets/')?>datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url('assets/'); ?>datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url('assets/'); ?>datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script> 
     $(document).ready(function() {
         $('#table-spp, #table-kelas, #table-siswa, #table-petugas, #table-siswa-modal, #table-histori-siswa').DataTable({
@@ -226,7 +222,8 @@
             $('#id_spp').val(id_spp);
             $('#tahun').val(tahun);
             $('#nominal').val(nominal);
-            $('#siswaModal').modal('hide');          
+            $('#siswaModal').modal('hide');     
+            $('#bulan_dibayar').prop( "disabled", false);     
             tbl_transaksi.search( nisn ).draw();
         })
         
@@ -238,6 +235,7 @@
             $('#id_spp').val('');
             $('#tahun').val('');
             $('#nominal').val('');
+            $('#bulan_dibayar').prop( "disabled", true);     
             tbl_transaksi.search( '' ).draw();
         })
 

@@ -212,11 +212,11 @@ class M_Admin extends CI_Model
         $data = [
             'nisn' => $this->input->post('nisn', true),
             'nis' => $this->input->post('nis', true),
-            'nama_siswa' => $this->input->post('nama_siswa', true),
+            'nama_siswa' => htmlspecialchars($this->input->post('nama_siswa', true)),
             'no_telepon' => $this->input->post('no_telepon', true),
             'id_kelas' => $this->input->post('id_kelas', true),
             'id_spp' => $this->input->post('id_spp', true),
-            'alamat' => $this->input->post('alamat', true)
+            'alamat' => htmlspecialchars($this->input->post('alamat', true))
         ];
 
         $this->db->insert('siswa', $data);

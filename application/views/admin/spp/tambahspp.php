@@ -8,14 +8,14 @@
 <div class="card mb-4 py-4 px-4">
     <div class="row">
         <div class="col-lg">
-            <div class="form-group" data-validate = "Tahun diperlukan!!">
+            <div class="form-group">
                 <label for="tahun">Tahun</label>
-                <input type="number" min="0" name="tahun" class="form-control" id="tahun" maxlength="4" autocomplete="off" placeholder="Masukkan Tahun" required>
+                <input type="numeric" name="tahun" class="form-control" id="tahun" maxlength="4" autocomplete="off" placeholder="Masukkan Tahun" required>
                 <?= form_error('tahun', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
-            <div class="form-group" data-validate = "Nominal diperlukan">
+            <div class="form-group">
                 <label for="nominal">Nominal</label>
-                <input type="number" min="0" name="nominal" class="form-control" id="nominal" autocomplete="off" placeholder="Masukkan Nominal" required>
+                <input type="numeric" name="nominal" class="form-control" id="nominal" autocomplete="off" placeholder="Masukkan Nominal" required>
                 <?= form_error('nominal', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
             <div class="form-group">

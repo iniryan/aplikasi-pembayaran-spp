@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <label for="nisn">Nomor Induk Siswa Nasional (NISN)</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="nisn" id="nisn" autocomplete="off" placeholder="NISN" required readonly>
+                                <input type="numeric" class="form-control" name="nisn" id="nisn" autocomplete="off" placeholder="NISN" required readonly>
                                 <span class="input-group-append">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#siswaModal">Cari</button>
                                 </span>
@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label for="nis">Nomor Induk Siswa (NIS)</label>
-                            <input type="text" class="form-control" name="nis" id="nis" autocomplete="off" placeholder="NIS" readonly>
+                            <input type="numeric" class="form-control" name="nis" id="nis" autocomplete="off" placeholder="NIS" readonly>
                         </div>
                         <div class="form-group">
                             <label for="nama_siswa">Nama Siswa</label>
@@ -41,12 +41,11 @@
                         <div class="form-group">
                             <label for="tahun">Tahun Dibayar (Tahun SPP)</label>
                             <input type="hidden" class="form-control" name="id_spp" id="id_spp" autocomplete="off" placeholder="ID SPP" readonly required>
-                            <input type="number" min="0" class="form-control" name="tahun" id="tahun" autocomplete="off" placeholder="Tahun" readonly required>
+                            <input type="numeric" class="form-control" name="tahun" id="tahun" autocomplete="off" placeholder="Tahun" readonly required>
                         </div>
                         <div class="form-group">
-                            <!-- jika yang lain kosong maka ini disable -->
                             <label for="bulan_dibayar">Bulan Dibayar</label>
-                            <select class="form-control" name="bulan_dibayar" id="bulan_dibayar" required>
+                            <select class="form-control" name="bulan_dibayar" id="bulan_dibayar" required disabled>
                                 <option value="">-Pilih Bulan-</option>
                                 <option value="Januari">Januari</option>
                                 <option value="Februari">Februari</option>
@@ -64,11 +63,11 @@
                         </div>
                         <div class="form-group">
                             <label for="nominal">Jumlah Bayar</label>
-                            <input type="number" min="0" class="form-control" name="nominal" id="nominal" autocomplete="off" placeholder="Rp " readonly required>
+                            <input type="numeric" class="form-control" name="nominal" id="nominal" autocomplete="off" placeholder="Rp " readonly required>
                         </div>
                         <div class="form-group">
                             <button onclick="return confirm('Pembayaran akan dilakukan ?')" type="submit" class="btn btn-warning">Proses Pembayaran</button>
-                            <button id="reset" class="btn btn-outline-secondary ml-2" role="button">Reset Data</button>
+                            <button id="reset" class="btn btn-outline-secondary ml-2" type="reset">Reset Data</button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +121,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="siswaModal" tabindex="-1" role="dialog" aria-labelledby="siswaModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+<div class="modal fade" id="siswaModal" tabindex="-1" role="dialog" aria-labelledby="siswaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">

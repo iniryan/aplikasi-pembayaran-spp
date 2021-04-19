@@ -35,7 +35,7 @@
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $row['tahun']; ?></td>
-                                <td>Rp <?= number_format($row['nominal'], 0, ',', '.') ?></td>             
+                                <td>Rp <?= number_format($row['nominal'], 0, ',', '.'); ?></td>             
                                 <td>
                                     <a href="<?= base_url('spp/ubah_spp/') . $row['id_spp']; ?>">
                                         <button class="btn btn-info p-2 mt-1">Ubah</button>
