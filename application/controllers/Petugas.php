@@ -42,7 +42,7 @@ class Petugas extends CI_Controller
                 'is_unique' => 'Username sudah tersedia, gunakan username lain!'
             ]);
 
-            $this->form_validation->set_rules('nama_petugas', 'Nama Petugas', 'required|trim',[
+            $this->form_validation->set_rules('nama_petugas', 'Nama_Petugas', 'required|trim',[
                 'required' => 'Nama Petugas diperlukan!'
             ]);
 
@@ -88,7 +88,7 @@ class Petugas extends CI_Controller
                 'required' => 'Username diperlukan!'
             ]);
                 
-            $this->form_validation->set_rules('nama_petugas', 'Nama Petugas', 'required|trim',[
+            $this->form_validation->set_rules('nama_petugas', 'Nama_Petugas', 'required|trim',[
                 'required' => 'Nama Petugas diperlukan!'
             ]);
                         

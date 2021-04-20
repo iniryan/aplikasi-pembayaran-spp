@@ -1,6 +1,5 @@
 note :
 
--- show / hide datatables (quest)
 -- daterangepicker datatables (quest)
 -- ubah petugas old password ?? (quest)
 -- if free create 404 page (quest)

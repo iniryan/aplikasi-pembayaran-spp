@@ -36,12 +36,12 @@ class Kelas extends CI_Controller
     public function tambah_kelas()
     {
         if($this->session->userdata('level') == 'Administrator') {
-            $this->form_validation->set_rules('nama_kelas', 'Nama_kelas', 'required|trim|is_unique[kelas.nama_kelas]', [
+            $this->form_validation->set_rules('nama_kelas', 'Nama_Kelas', 'required|trim|is_unique[kelas.nama_kelas]', [
                 'required' => 'Nama Kelas diperlukan!',
                 'is_unique' => 'Nama Kelas sudah tersedia, gunakan nama kelas lain!'
             ]);
 
-            $this->form_validation->set_rules('kompetensi_keahlian', 'Kompetensi_keahlian', 'required|trim', [
+            $this->form_validation->set_rules('kompetensi_keahlian', 'Kompetensi_Keahlian', 'required|trim', [
                 'required' => 'Kompetensi Keahlian diperlukan!',
             ]);
         
@@ -74,11 +74,11 @@ class Kelas extends CI_Controller
             $data['user'] = $this->Model->datauser();
             $data['detail'] = $this->Model->getDataKelas($id);
 
-            $this->form_validation->set_rules('nama_kelas', 'Nama_kelas', 'required|trim', [
+            $this->form_validation->set_rules('nama_kelas', 'Nama_Kelas', 'required|trim', [
                 'required' => 'Nama Kelas diperlukan!'
             ]);
 
-            $this->form_validation->set_rules('kompetensi_keahlian', 'Kompetensi_keahlian', 'required|trim', [
+            $this->form_validation->set_rules('kompetensi_keahlian', 'Kompetensi_Keahlian', 'required|trim', [
                 'required' => 'Kompetensi Keahlian diperlukan!',
             ]);
 
