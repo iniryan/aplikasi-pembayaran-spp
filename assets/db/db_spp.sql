@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Apr 2021 pada 05.33
+-- Waktu pembuatan: 20 Apr 2021 pada 08.48
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -82,6 +82,7 @@ CREATE TABLE `pembayaran` (
   `id_petugas` int(11) NOT NULL,
   `nisn` varchar(256) NOT NULL,
   `tgl_bayar` date NOT NULL DEFAULT current_timestamp(),
+  `waktu_bayar` time NOT NULL DEFAULT current_timestamp(),
   `bulan_dibayar` varchar(256) NOT NULL,
   `tahun_dibayar` varchar(256) NOT NULL,
   `id_spp` int(11) NOT NULL,
@@ -92,13 +93,17 @@ CREATE TABLE `pembayaran` (
 -- Dumping data untuk tabel `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`id_pembayaran`, `id_petugas`, `nisn`, `tgl_bayar`, `bulan_dibayar`, `tahun_dibayar`, `id_spp`, `jumlah_bayar`) VALUES
-(2, 1, '1087123456', '2019-04-12', 'Januari', '2019', 2, 250000),
-(5, 11, '1087123456', '2019-04-12', 'Februari', '2019', 2, 250000),
-(6, 1, '9913160053', '2021-04-13', 'Januari', '2021', 1, 250000),
-(10, 11, '9878654300', '2021-04-14', 'Januari', '2021', 1, 250000),
-(24, 1, '1099803456', '2021-04-16', 'Januari', '2021', 1, 250000),
-(26, 1, '1099803456', '2021-04-20', 'Februari', '2021', 1, 250000);
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_petugas`, `nisn`, `tgl_bayar`, `waktu_bayar`, `bulan_dibayar`, `tahun_dibayar`, `id_spp`, `jumlah_bayar`) VALUES
+(2, 1, '1087123456', '2019-04-12', '08:41:03', 'Januari', '2019', 2, 250000),
+(5, 11, '1087123456', '2019-04-12', '13:05:03', 'Februari', '2019', 2, 250000),
+(6, 1, '9913160053', '2021-04-13', '14:20:03', 'Januari', '2021', 1, 250000),
+(10, 11, '9878654300', '2021-04-14', '08:41:20', 'Januari', '2021', 1, 250000),
+(24, 1, '1099803456', '2021-04-16', '11:01:29', 'Januari', '2021', 1, 250000),
+(26, 1, '1099803456', '2021-04-20', '13:31:03', 'Februari', '2021', 1, 250000),
+(30, 1, '9913160053', '2021-04-20', '13:39:00', 'April', '2021', 1, 250000),
+(31, 1, '9913160053', '2021-04-20', '13:41:03', 'Mei', '2021', 1, 250000),
+(32, 1, '9898212300', '2021-04-20', '13:41:31', 'Januari', '2021', 1, 250000),
+(33, 1, '1099803456', '2021-04-20', '13:46:17', 'Maret', '2021', 1, 250000);
 
 -- --------------------------------------------------------
 
@@ -122,7 +127,7 @@ CREATE TABLE `petugas` (
 
 INSERT INTO `petugas` (`id_petugas`, `nama_petugas`, `username`, `password`, `level`, `status`, `dihapus`) VALUES
 (1, 'Administrator', 'admin', '$2y$10$8m4LyrwBnfQ7cZUao7UgXu9oxBExo.eRqaB2Nop2YS1S1bP6MLyBu', 'Administrator', 1, 0),
-(2, 'Ryan Adi', 'petugas1', '$2y$10$7lzVuRN0RTrkBnDdjJW99.d71rtds4EYLoOheycemjLMEbT9HqBm2', 'Petugas', 0, 0),
+(2, 'Ryan Adi', 'petugas1', '$2y$10$7lzVuRN0RTrkBnDdjJW99.d71rtds4EYLoOheycemjLMEbT9HqBm2', 'Petugas', 1, 0),
 (4, 'Asmirandah', 'asmira', '$2y$10$qfRTpbpiJJSG0xpt/c.jCuR5uCS7jAq43JC0wZVGKeqb9HtVIZ7zW', 'Petugas', 1, 1),
 (5, 'Mario Susano', 'mario', '$2y$10$IxQUCL4EitZ0s3VZTfnOxeiQHma5JkB0oygB0Cblif1W0Eg2Eckue', 'Petugas', 1, 0),
 (6, 'Wira Pratama', 'wira', '$2y$10$keXU5.I9EYCNbEUFpd/I/uv1q86.o.T2TlNP1EiC4X2Porb9vOj26', 'Petugas', 1, 1),
@@ -243,7 +248,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `petugas`

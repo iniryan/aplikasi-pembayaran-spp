@@ -1,20 +1,10 @@
 note :
 
 -- daterangepicker datatables (quest)
+-- cetak per kelas (quest)
 -- ubah petugas old password ?? (quest)
 -- if free create 404 page (quest)
 
--- Model fungsi lastTransaksi()
-public function lastTransaksi()
-{
-    $this->db->select('*');
-    $this->db->from('pembayaran a');
-    $this->db->join('petugas b', 'a.id_petugas = b.id_petugas', 'left');
-    $this->db->join('siswa c', 'a.nisn = c.nisn', 'left');
-    $this->db->order_by('id_pembayaran DESC');
-    $this->db->limit(3);
-    return $this->db->get()->result_array();
-}
 
 -- template.php 
 // var tbl_laporan = 

@@ -27,6 +27,10 @@
             <td style="font-size: 12px;"><?= date_indo($kwitansi['tgl_bayar']); ?></td>
         </tr>
         <tr>
+            <td style="font-size: 12px; color: rgba(0,0,0,0.6);" class="text-right pr-3"><b>WAKTU PEMBAYARAN :</b></td>
+            <td style="font-size: 12px;"><?= $kwitansi['waktu_bayar']; ?></td>
+        </tr>
+        <tr>
             <td style="font-size: 12px; color: rgba(0,0,0,0.6);" class="text-right pr-3"><b>NAMA PETUGAS :</b></td>
             <td style="font-size: 12px;"><?= $kwitansi['nama_petugas']; ?></td>
         </tr>
