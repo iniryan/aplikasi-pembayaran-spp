@@ -304,17 +304,6 @@ class Model extends CI_Model
         $this->db->order_by('id_pembayaran DESC');
         return $this->db->get()->result_array();
     }   
-    
-    public function lastTransaksi()
-    {
-        $this->db->select('*');
-        $this->db->from('pembayaran a');
-        $this->db->join('petugas b', 'a.id_petugas = b.id_petugas', 'left');
-        $this->db->join('siswa c', 'a.nisn = c.nisn', 'left');
-        $this->db->order_by('id_pembayaran DESC');
-        $this->db->limit(3);
-        return $this->db->get()->result_array();
-    }   
 
     public function getFilterLaporan($limit = null, $start = null, $count = true, $where1, $where2)
     {

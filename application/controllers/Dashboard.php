@@ -26,7 +26,7 @@ class Dashboard extends CI_Controller
                 $data['siswa'] = $this->Model->countSiswa();
                 $data['petugas'] = $this->Model->countPetugas();
                 $data['transaksi'] = $this->Model->countTransaksi();
-                $data['last'] = $this->Model->lastTransaksi();
+                $data['histori'] = $this->Model->getAllLaporan();
                 $this->template->load('page/template', 'page/dashboard', $data);
             }elseif($this->session->userdata('level') == 'Siswa'){
                 $data['title'] = 'Bayar SPP';

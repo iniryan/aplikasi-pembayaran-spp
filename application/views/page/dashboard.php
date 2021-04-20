@@ -67,7 +67,7 @@
         <div class="card">
             <div class="card-body">
             <div class="table-responsive">
-                    <table id="table-transaksi" class="table table-bordered">
+                    <table id="table-histori" class="table table-bordered">
                         <thead>
                             <tr class="text-center">
                                 <th>Tanggal Pembayaran</th>        
@@ -79,7 +79,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($last as $row) { ?>
+                            <?php foreach ($histori as $row) { ?>
                             <tr class="text-center">
                                 <td><?= date_indo($row['tgl_bayar']); ?></td>
                                 <td><?= $row['nisn']; ?></td>                    
