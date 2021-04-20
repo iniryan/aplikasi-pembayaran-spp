@@ -192,6 +192,8 @@
         }
         });
 
+        $('#tb-pembayaran').hide();     
+
         var tbl_transaksi = 
         $('#table-transaksi').DataTable({
         "paging": true,
@@ -233,7 +235,8 @@
             $('#tahun').val(tahun);
             $('#nominal').val(nominal);
             $('#siswaModal').modal('hide');     
-            $('#bulan_dibayar').prop( "disabled", false);     
+            $('#bulan_dibayar').prop( "disabled", false);
+            $('#tb-pembayaran').show();     
             tbl_transaksi.search( nisn ).draw();
         });
         
@@ -246,6 +249,7 @@
             $('#tahun').val('');
             $('#nominal').val('');
             $('#bulan_dibayar').prop( "disabled", true);     
+            $('#tb-pembayaran').hide();     
             tbl_transaksi.search( '' ).draw();
         });
 
