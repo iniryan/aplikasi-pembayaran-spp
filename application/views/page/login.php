@@ -18,7 +18,7 @@
       
         <div class="app-logo mb-3">
             <span class="fas fa-user-graduate"></span>
-            <div class="app-text mx-3"> <?= $app; ?></div>
+            <div class="app-text mx-3"> <?= $title; ?></div>
         </div>
 
       <form action="<?= base_url('auth'); ?>" method="post">
@@ -43,15 +43,6 @@
             <button type="submit" class="btn btn-primary btn-block btn-login">Masuk</button>
           </div>
       </form>
-
-      <!-- <div class="text-center mt-3">
-        <p class="btn-signup">
-          Belum punya akun ?
-          <a href="<?= base_url('auth/registration'); ?>">
-            Daftar Sekarang!
-          </a>
-        </p>  
-      </div> -->
 
     </div>
   </div>

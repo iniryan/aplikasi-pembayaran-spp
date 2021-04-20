@@ -11,7 +11,7 @@ class Auth extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_Admin');
+		$this->load->model('Model');
 		$this->load->library('form_validation');
 	}
 	
@@ -22,9 +22,9 @@ class Auth extends CI_Controller {
 		
 		if ($this->form_validation->run() == false) {
 			if($this->session->userdata('userid') == null) {
-				$data['title'] = "Preparation SPP";
-				$data['app'] = "Bayar SPP";
-				$this->load->view('login/login', $data);
+				$data['title'] = "Bayar SPP";
+
+				$this->load->view('page/login', $data);
 			} else {
 				redirect('dashboard');
 			} 
@@ -37,8 +37,8 @@ class Auth extends CI_Controller {
 	{
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		$user = $this->M_Admin->getUsername($username);
-		$nisn = $this->M_Admin->getNisn($username);
+		$user = $this->Model->getUsername($username);
+		$nisn = $this->Model->getNisn($username);
 		
 			if ($user){
 				if($user['level'] == 'Administrator' || $user['level'] == 'Petugas') {
@@ -101,39 +101,6 @@ class Auth extends CI_Controller {
 		$this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Berhasil Logout!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 		redirect('auth');
 	}
-
-	public function registration()
-	{
-		
-		$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[petugas.username]', [
-			'required' => 'Username diperlukan!',
-			'is_unique' => 'Username sudah tersedia, gunakan username lain!'
-			]);
-
-		$this->form_validation->set_rules('nama_petugas', 'Nama_Petugas', 'required|trim');
-			
-		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|matches[password_confirm]', [
-			'min_length' => 'Password terlalu pendek! kurang lebih harus 8 character!',
-			'matches' => 'Password tidak sama! coba lagi!'
-			]);
-			
-		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|matches[password]', [
-			'matches' => 'Password tidak sama! coba lagi!'
-			]);
-				
-			if ($this->form_validation->run() == false) {
-				
-				$data['title'] = "Preparation SPP";
-				$data['app'] = "Bayar SPP";
-				$this->load->view('login/register', $data);
-			} 
-			else {
-				$this->M_Admin->registration();
-				$this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Selamat, akun telah dibuat! Silahkan login!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-
-				redirect('auth');
-			}
-	}
+	
 }
-
 ?>

@@ -20,7 +20,7 @@
     <div class="sidebar-brand">
         <div class="brand-flex">
             <span class="fas fa-user-graduate"></span>
-            <div class="brand-text mx-3"> <?= $app; ?></div>
+            <div class="brand-text mx-3"> <?= $title; ?></div>
         </div>
         <hr class="brand-divider">
     </div>
@@ -90,12 +90,22 @@
                         Pembayaran SPP
                         </a>
                     </li>
+                    <?php if($this->session->userdata('level') == 'Administrator') { ?> 
                     <li>
                         <a href="<?= base_url('laporan');?>" class="nav-link <?php if ($menu == 'Laporan' || $menu == 'laporan') {echo 'active';} ?>">
                             <span class="fas fa-file-signature"></span>
                             Laporan
                         </a>
                     </li>
+                    <?php } ?>
+                    <?php if($this->session->userdata('level') == 'Petugas') { ?> 
+                        <li>
+                            <a href="<?= base_url('histori');?>" class="nav-link <?php if ($menu == 'Histori' || $menu == 'histori') {echo 'active';} ?>">
+                                <span class="fas fa-file-signature"></span>
+                                Histori Transaksi
+                            </a>
+                        </li>
+                    <?php } ?>
                 </ul>
                 <?php } ?>
                 <div class="menu-head">
@@ -122,7 +132,7 @@
         </header>
 
         <main>
-            <?= $contents ?>
+            <?= $contents; ?>
 
             <div class="modal fade" id="Keluar" tabindex="-1" role="dialog" aria-labelledby="modalKeluar" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -160,7 +170,7 @@
 <script src="<?= base_url('assets/'); ?>datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script> 
     $(document).ready(function() {
-        $('#table-spp, #table-kelas, #table-siswa, #table-petugas, #table-siswa-modal, #table-histori-siswa').DataTable({
+        $('#table-spp, #table-kelas, #table-siswa, #table-petugas, #table-siswa-modal, #table-histori-siswa, #table-histori').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": true,
@@ -225,7 +235,7 @@
             $('#siswaModal').modal('hide');     
             $('#bulan_dibayar').prop( "disabled", false);     
             tbl_transaksi.search( nisn ).draw();
-        })
+        });
         
         $(document).on('click', '#reset', function() {          
             $('#nisn').val('');
@@ -237,15 +247,16 @@
             $('#nominal').val('');
             $('#bulan_dibayar').prop( "disabled", true);     
             tbl_transaksi.search( '' ).draw();
-        })
+        });
 
         $('[type=numeric]').on('change', function(e) {
             $(e.target).val($(e.target).val().replace(/[^\d\.]/g, ''))
-        })
+        });
+
         $('[type=numeric]').on('keypress', function(e) {
-            keys = ['0','1','2','3','4','5','6','7','8','9','.']
+            keys = ['0','1','2','3','4','5','6','7','8','9']
             return keys.indexOf(event.key) > -1
-        })
+        });
 
         $('#datepick').daterangepicker({
         opens: 'left',
@@ -266,8 +277,7 @@
         });
 
         pageLaporan(page_url = false);
-
-        $('#caripembayaran').click(function () {
+        $(document).on('click', '#caripembayaran', function() {          
             var tglPembayaran = $('[name=tglPembayaran]').val();
             pageLaporan(page_url = false);
         });
@@ -280,7 +290,7 @@
 
         function pageLaporan(page_url) {
             var tglPembayaran = $('[name=tglPembayaran]').val();
-            var link = 'http://localhost/trial_ukk/01-preparation/preparation/laporan/index_ajax';
+            var link = '<?= base_url('laporan/index_ajax') ?>';
 
             if (page_url) {
                 link = page_url;

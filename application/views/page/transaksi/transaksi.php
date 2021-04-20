@@ -66,7 +66,7 @@
                             <input type="numeric" class="form-control" name="nominal" id="nominal" autocomplete="off" placeholder="Rp " readonly required>
                         </div>
                         <div class="form-group">
-                            <button onclick="return confirm('Pembayaran akan dilakukan ?')" type="submit" class="btn btn-warning">Proses Pembayaran</button>
+                            <button onclick="return confirm('Pembayaran akan dilakukan ?')" type="submit" class="btn btn-warning my-2">Proses Pembayaran</button>
                             <button id="reset" class="btn btn-outline-secondary ml-2" type="reset">Reset Data</button>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         <thead>
                             <tr class="text-center">
                                 <th>Tanggal Pembayaran</th>        
-                                <th>NISN / NIS</th>
+                                <th>NISN</th>
                                 <th>Atas Nama</th>
                                 <th>SPP</th>
                                 <th>Petugas</th>
@@ -101,14 +101,24 @@
                             <?php foreach ($datafilter as $row) { ?>
                             <tr class="text-center">
                                 <td><?= date_indo($row['tgl_bayar']); ?></td>
-                                <td><?= $row['nisn'].' / '.$row['nis']; ?></td>                    
+                                <td><?= $row['nisn']; ?></td>                    
                                 <td><?= $row['nama_siswa']; ?></td>                    
                                 <td><?= $row['bulan_dibayar'].' - '.$row['tahun_dibayar']; ?></td>
                                 <td><?= $row['nama_petugas']; ?></td>
                                 <td>Rp <?= number_format($row['jumlah_bayar'], 0, ',', '.'); ?></td>
                                 <td>
-                                    <a class="btn btn-info p-2 mt-1" href="<?= base_url('laporan/cetak_nota/') . $row['id_pembayaran']; ?>">
-                                        Cetak Kwitansi
+                                    <?php if($this->session->userdata('level') == 'Administrator') { ?>
+                                        <a class="btn btn-info p-2 mt-1" href="<?= base_url('laporan/cetak_nota/') . $row['id_pembayaran']; ?>">
+                                            Cetak
+                                        </a>
+                                    <?php } ?>
+                                    <?php if($this->session->userdata('level') == 'Petugas') { ?>
+                                        <a class="btn btn-info p-2 mt-1" href="<?= base_url('histori/cetak_nota/') . $row['id_pembayaran']; ?>">
+                                            Cetak
+                                        </a>
+                                    <?php } ?>
+                                    <a onclick="return confirm('Anda yakin akan membatalkan transaksi siswa ini ?')" class="btn btn-danger p-2 mt-1" href="<?= base_url('transaksi/batal/') . $row['id_pembayaran']; ?>">
+                                        Batal
                                     </a>
                                 </td>
                             </tr>

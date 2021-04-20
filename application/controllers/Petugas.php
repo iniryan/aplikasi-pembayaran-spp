@@ -11,7 +11,7 @@ class Petugas extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-        $this->load->model('M_Admin');
+        $this->load->model('Model');
         $this->load->library('form_validation');
 	}
     
@@ -19,12 +19,14 @@ class Petugas extends CI_Controller
     public function index()
     {
 	    if($this->session->userdata('level') == 'Administrator') {
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['petugas'] = $this->M_Admin->getPetugas();
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            // $data['petugas'] = $this->Model->getPetugas();
+            $data['petugas'] = $this->db->query('call getPetugas()')->result_array();
 
-            $this->template->load('admin/template', 'admin/petugas/petugas', $data);
+
+            $this->template->load('page/template', 'page/petugas/petugas', $data);
         }else{
             redirect('dashboard');
         }
@@ -40,27 +42,29 @@ class Petugas extends CI_Controller
                 'is_unique' => 'Username sudah tersedia, gunakan username lain!'
             ]);
 
-            $this->form_validation->set_rules('nama_petugas', 'Nama_Petugas', 'required|trim');
+            $this->form_validation->set_rules('nama_petugas', 'Nama Petugas', 'required|trim',[
+                'required' => 'Nama Petugas diperlukan!'
+            ]);
 
             $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|matches[password_confirm]', [
                 'min_length' => 'Password terlalu pendek! kurang lebih harus 8 character!',
                 'matches' => 'Password tidak sama! coba lagi!'
             ]);
 
-            $this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|matches[password]', [
+            $this->form_validation->set_rules('password_confirm', 'Konfirmasi Password', 'trim|matches[password]', [
                 'matches' => 'Password tidak sama! coba lagi!'
             ]);
             
             if ($this->form_validation->run() == false) {
-                $data['title'] = 'Preparation SPP';
-                $data['app'] = 'Bayar SPP';
-                $data['user'] = $this->M_Admin->datauser();
+                $data['title'] = 'Bayar SPP';
                 
-                $this->template->load('admin/template', 'admin/petugas/tambahpetugas', $data);
+                $data['user'] = $this->Model->datauser();
+                
+                $this->template->load('page/template', 'page/petugas/tambahpetugas', $data);
             } 
             else {
                 
-                $this->M_Admin->tambah_petugas();
+                $this->Model->tambah_petugas();
                 $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 
                 redirect('petugas');
@@ -75,29 +79,31 @@ class Petugas extends CI_Controller
     {
         
         if($this->session->userdata('level') == 'Administrator') {
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['detail'] = $this->M_Admin->getDataPetugas($id);
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            $data['detail'] = $this->Model->getDataPetugas($id);
             
             $this->form_validation->set_rules('username', 'Username', 'required|trim', [
                 'required' => 'Username diperlukan!'
             ]);
                 
-            $this->form_validation->set_rules('nama_petugas', 'Nama_Petugas', 'required|trim');
-            
+            $this->form_validation->set_rules('nama_petugas', 'Nama Petugas', 'required|trim',[
+                'required' => 'Nama Petugas diperlukan!'
+            ]);
+                        
             $this->form_validation->set_rules('password', 'Password', 'trim|min_length[8]|matches[password_confirm]', [
                 'min_length' => 'Password terlalu pendek! kurang lebih harus 8 character!',
                 'matches' => 'Password tidak sama! coba lagi!'
             ]);
                 
-            $this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|matches[password]', [
+            $this->form_validation->set_rules('password_confirm', 'Konfirmasi Password', 'trim|matches[password]', [
                 'matches' => 'Password tidak sama! coba lagi!'
             ]);
                 
             if ($this->form_validation->run() == false) {
                 
-                $this->template->load('admin/template', 'admin/petugas/ubahpetugas', $data);
+                $this->template->load('page/template', 'page/petugas/ubahpetugas', $data);
             } else {
                 $pass = $this->input->post('password');
                 if($pass == null){
@@ -116,7 +122,7 @@ class Petugas extends CI_Controller
                 $where = [
                     'id_petugas' => $this->input->post('id_petugas')
                 ];
-                $this->M_Admin->ubah_petugas($data, $where);
+                $this->Model->ubah_petugas($data, $where);
                 $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
                 redirect('petugas');
@@ -131,7 +137,7 @@ class Petugas extends CI_Controller
     {
         if($this->session->userdata('level') == 'Administrator') {
 
-            $this->M_Admin->delete_petugas($id);
+            $this->Model->delete_petugas($id);
             $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
             redirect('petugas');
@@ -145,7 +151,7 @@ class Petugas extends CI_Controller
     {
         if($this->session->userdata('level') == 'Administrator') {
 
-            $this->M_Admin->block_petugas($id);
+            $this->Model->block_petugas($id);
             $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil diblokir!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
             redirect('petugas');
@@ -159,7 +165,7 @@ class Petugas extends CI_Controller
     {
         if($this->session->userdata('level') == 'Administrator') {
 
-            $this->M_Admin->active_petugas($id);
+            $this->Model->active_petugas($id);
             $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil diaktifkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
             redirect('petugas');

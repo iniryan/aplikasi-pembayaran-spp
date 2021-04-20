@@ -22,10 +22,9 @@
                 <input type="text" name="username" class="form-control" id="username" autocomplete="off" value="<?= $detail['username']; ?>"  placeholder="Masukkan Username" required>
                 <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
-
             <div class="form-group">
-                <label for="password">Password (Jika tidak diganti kosongkan saja)</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password" autocomplete="off">
+                <label for="password">Password Baru (Jika tidak diganti kosongkan saja)</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Password Baru" autocomplete="off">
                 <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>  
             <div class="form-group">

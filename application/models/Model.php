@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * author ryanadi
  */
 
-class M_Admin extends CI_Model
+class Model extends CI_Model
 {
     public function __construct()
     {
@@ -277,6 +277,11 @@ class M_Admin extends CI_Model
 
         $this->db->insert('pembayaran', $data);
     }
+
+    public function batal_bayar($id)
+    {
+        return $this->db->delete('pembayaran', ['id_pembayaran' => $id]);
+    }
     
     public function cetakNota($id)
     {
@@ -297,6 +302,17 @@ class M_Admin extends CI_Model
         $this->db->join('petugas b', 'a.id_petugas = b.id_petugas', 'left');
         $this->db->join('siswa c', 'a.nisn = c.nisn', 'left');
         $this->db->order_by('id_pembayaran DESC');
+        return $this->db->get()->result_array();
+    }   
+    
+    public function lastTransaksi()
+    {
+        $this->db->select('*');
+        $this->db->from('pembayaran a');
+        $this->db->join('petugas b', 'a.id_petugas = b.id_petugas', 'left');
+        $this->db->join('siswa c', 'a.nisn = c.nisn', 'left');
+        $this->db->order_by('id_pembayaran DESC');
+        $this->db->limit(3);
         return $this->db->get()->result_array();
     }   
 
@@ -348,18 +364,6 @@ class M_Admin extends CI_Model
             $this->db->where($where2);
         }
         return $this->db->get();
-    }
-
-    public function registration()
-    {
-        $data = [
-            'username' => htmlspecialchars($this->input->post('username', true)),
-            'nama_petugas' => htmlspecialchars($this->input->post('nama_petugas', true)),
-            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-            'level' => 'Petugas',
-            'status' => 1,
-        ];
-        $this->db->insert('petugas', $data);
     }
 
 }

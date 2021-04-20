@@ -1,9 +1,9 @@
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table id="table-laporan" class="table table-bordered">
         <thead>
             <tr class="text-center">
                 <th>Tanggal Pembayaran</th>        
-                <th>NISN / NIS</th>
+                <th>NISN</th>
                 <th>Atas Nama</th>
                 <th>SPP</th>
                 <th>Petugas</th>
@@ -15,7 +15,7 @@
             <?php foreach ($datafilter as $row) { ?>
             <tr class="text-center">
                 <td><?= date_indo($row['tgl_bayar']); ?></td>
-                <td><?= $row['nisn'].' / '.$row['nis']; ?></td>                    
+                <td><?= $row['nisn']; ?></td>                    
                 <td><?= $row['nama_siswa']; ?></td>                    
                 <td><?= $row['bulan_dibayar'].' - '.$row['tahun_dibayar']; ?></td>
                 <td><?= $row['nama_petugas']; ?></td>

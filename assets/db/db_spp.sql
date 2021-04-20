@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Apr 2021 pada 13.31
+-- Waktu pembuatan: 20 Apr 2021 pada 05.33
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -21,6 +21,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_spp`
 --
+
+DELIMITER $$
+--
+-- Prosedur
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllKelas` ()  BEGIN
+SELECT * FROM `kelas` WHERE dihapus = 0;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllSpp` ()  BEGIN
+SELECT * FROM `spp` WHERE dihapus = 0;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPetugas` ()  BEGIN
+SELECT * FROM `petugas` WHERE dihapus = 0;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSiswa` ()  BEGIN
+SELECT * FROM `siswa` AS a JOIN `kelas` AS b ON a.id_kelas = b.id_kelas 
+JOIN `spp` AS c ON a.id_spp = c.id_spp WHERE a.dihapus = 0;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -44,7 +67,9 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kompetensi_keahlian`, `dihapus`)
 (2, 'XII RPL B', 'Rekayasa Perangkat Lunak', 0),
 (5, 'XII RPL C', 'Rekayasa Perangkat Lunak', 0),
 (8, 'XII MM A', 'Multimedia', 1),
-(9, 'XII MM C', 'Multimedia', 1);
+(9, 'XII MM C', 'Multimedia', 1),
+(10, 'XII MM B', 'Multimedia', 1),
+(11, 'XII TKJ A', 'Teknik Komputer Jaringan', 1);
 
 -- --------------------------------------------------------
 
@@ -72,7 +97,8 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `id_petugas`, `nisn`, `tgl_bayar`, `b
 (5, 11, '1087123456', '2019-04-12', 'Februari', '2019', 2, 250000),
 (6, 1, '9913160053', '2021-04-13', 'Januari', '2021', 1, 250000),
 (10, 11, '9878654300', '2021-04-14', 'Januari', '2021', 1, 250000),
-(24, 1, '1099803456', '2021-04-16', 'Januari', '2021', 1, 250000);
+(24, 1, '1099803456', '2021-04-16', 'Januari', '2021', 1, 250000),
+(26, 1, '1099803456', '2021-04-20', 'Februari', '2021', 1, 250000);
 
 -- --------------------------------------------------------
 
@@ -100,9 +126,11 @@ INSERT INTO `petugas` (`id_petugas`, `nama_petugas`, `username`, `password`, `le
 (4, 'Asmirandah', 'asmira', '$2y$10$qfRTpbpiJJSG0xpt/c.jCuR5uCS7jAq43JC0wZVGKeqb9HtVIZ7zW', 'Petugas', 1, 1),
 (5, 'Mario Susano', 'mario', '$2y$10$IxQUCL4EitZ0s3VZTfnOxeiQHma5JkB0oygB0Cblif1W0Eg2Eckue', 'Petugas', 1, 0),
 (6, 'Wira Pratama', 'wira', '$2y$10$keXU5.I9EYCNbEUFpd/I/uv1q86.o.T2TlNP1EiC4X2Porb9vOj26', 'Petugas', 1, 1),
-(11, 'Ryan', 'ryan', '$2y$10$zg1P7lwPo71MQONkEdOeuugUXfqteH0RGN8SOBEWDl6Or9cmQPoGq', 'Petugas', 1, 0),
+(11, 'Ryan', 'ryanadi', '$2y$10$UYoDrEsGze5kDJLItIEimubQ4sdfj63T.QVjLK2LhUmIolnJAVNBu', 'Petugas', 1, 0),
 (18, 'Wira Permana', 'wirape', '$2y$10$va3IBQ.lzz97RvxLxtFKc.huRme6eA9TSXP7NgKFu.GpmMtBIOuYa', 'Petugas', 1, 0),
-(25, 'Alfarizi Ahmad', 'alfa', '$2y$10$UaB4ddTonskdWukWWdVuKuudUm3C8RwtVXyLFCBrc0H6Yv3OZR0nG', 'Petugas', 1, 1);
+(25, 'Alfarizi Ahmad', 'alfa', '$2y$10$UaB4ddTonskdWukWWdVuKuudUm3C8RwtVXyLFCBrc0H6Yv3OZR0nG', 'Petugas', 1, 0),
+(26, 'Irma Saraswati Pudjiastuti', 'irma', '$2y$10$A8vSI0xPJTaCek2mA2vKsOLH7isDpAkByBsvLLV7yJdsDC1RGZSV6', 'Petugas', 1, 1),
+(27, 'Irene Sugiarto', 'irene', '$2y$10$yNPVw3AvcPIS/ZxtP8qP2ONoe43Vnlu/ORjTnMAFPWGbjsrc36wwW', 'Petugas', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -129,8 +157,11 @@ INSERT INTO `siswa` (`nisn`, `nis`, `nama_siswa`, `alamat`, `no_telepon`, `id_ke
 ('0908712005', '197809003212', 'Irmawandi Subianto', 'Malang - Jawa Timur', '087955643223', 2, 3, 1),
 ('1087123456', '193351280132', 'Saito Gunawan', 'Malang - Jawa Timur', '082144806990', 1, 2, 0),
 ('1099803456', '197865043210', 'Ayu Saputri', 'Malang - Jawa Timur', '080877030121', 1, 1, 0),
+('1456098021', '198101012003', 'Indah Permata', 'Malang - Jawa Timur', '0890221350647', 2, 1, 0),
 ('1456098777', '196654345212', 'Susi Susanti', 'Malang - Jawa Timur', '087890091201', 5, 1, 1),
+('9465502021', '195051286034', 'Johan Agustus', 'Malang - Jawa Timur', '089755123460', 2, 1, 1),
 ('9878654300', '194821280021', 'Dimas Gandarwa', 'Malang - Jawa Timur', '085877245600', 2, 1, 0),
+('9898212300', '197887545421', 'Dika Firdaus', 'Batu - Jawa Timur', '087877982002', 5, 1, 0),
 ('9913160053', '195051289065', 'Ryan Adi Saputra', 'Malang - Jawa Timur', '083877534525', 1, 1, 0);
 
 -- --------------------------------------------------------
@@ -155,7 +186,9 @@ INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`, `dihapus`) VALUES
 (2, 2019, 250000, 0),
 (3, 2018, 300000, 0),
 (9, 2017, 500000, 1),
-(36, 2016, 300000, 1);
+(36, 2016, 300000, 1),
+(37, 2020, 250000, 1),
+(38, 2015, 200000, 1);
 
 --
 -- Indexes for dumped tables
@@ -204,25 +237,25 @@ ALTER TABLE `spp`
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `spp`
 --
 ALTER TABLE `spp`
-  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

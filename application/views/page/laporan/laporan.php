@@ -33,9 +33,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="form-group">
-                    <div class="laporan"></div>
-                </div>
+                <div class="laporan"></div>
             </div>
             </form>
         </div>

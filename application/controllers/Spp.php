@@ -11,7 +11,7 @@ class Spp extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-        $this->load->model('M_Admin');
+        $this->load->model('Model');
         $this->load->library('form_validation');
 	}
     
@@ -19,12 +19,14 @@ class Spp extends CI_Controller
     public function index()
     {
 	    if($this->session->userdata('level') == 'Administrator') {
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['spp'] = $this->M_Admin->getAllSpp();
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            // $data['spp'] = $this->Model->getAllSpp();
+            $data['spp'] = $this->db->query('call getAllSpp()')->result_array();
 
-            $this->template->load('admin/template', 'admin/spp/spp', $data);
+
+            $this->template->load('page/template', 'page/spp/spp', $data);
         }else{
             redirect('dashboard');
         }
@@ -50,14 +52,14 @@ class Spp extends CI_Controller
             
             if ($this->form_validation->run() == false) {
 
-                $data['title'] = 'Preparation SPP';
-                $data['app'] = 'Bayar SPP';
-                $data['user'] = $this->M_Admin->datauser();
+                $data['title'] = 'Bayar SPP';
                 
-                $this->template->load('admin/template', 'admin/spp/tambahspp', $data);
+                $data['user'] = $this->Model->datauser();
+                
+                $this->template->load('page/template', 'page/spp/tambahspp', $data);
             } 
             else {
-                $this->M_Admin->tambah_spp();
+                $this->Model->tambah_spp();
                 $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data spp berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
                 redirect('spp');
@@ -72,10 +74,10 @@ class Spp extends CI_Controller
     {
         if($this->session->userdata('level') == 'Administrator') {
 
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['detail'] = $this->M_Admin->getDataSpp($id);
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            $data['detail'] = $this->Model->getDataSpp($id);
 
             $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|min_length[4]|max_length[4]|integer', [
                 'required' => 'Tahun harus diisi!',
@@ -93,7 +95,7 @@ class Spp extends CI_Controller
 
             if ($this->form_validation->run() == false) {
                 
-                $this->template->load('admin/template', 'admin/spp/ubahspp', $data);
+                $this->template->load('page/template', 'page/spp/ubahspp', $data);
             } else {
                 $data = [
                     'tahun' => $this->input->post('tahun', true),
@@ -104,7 +106,7 @@ class Spp extends CI_Controller
                     'id_spp' => $this->input->post('id_spp')
                 ];
                 
-                $this->M_Admin->ubah_spp($data, $where);
+                $this->Model->ubah_spp($data, $where);
                 $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data spp berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
                 redirect('spp');
@@ -119,7 +121,7 @@ class Spp extends CI_Controller
     {
         if($this->session->userdata('level') == 'Administrator') {
 
-            $this->M_Admin->delete_spp($id);
+            $this->Model->delete_spp($id);
             $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data spp berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
             redirect('spp');

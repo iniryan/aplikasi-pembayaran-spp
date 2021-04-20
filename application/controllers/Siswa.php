@@ -11,7 +11,7 @@ class Siswa extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-        $this->load->model('M_Admin');
+        $this->load->model('Model');
         $this->load->library('form_validation');
 	}
     
@@ -19,12 +19,14 @@ class Siswa extends CI_Controller
     public function index()
     {
 	    if($this->session->userdata('level') == 'Administrator') {
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['siswa'] = $this->M_Admin->getSiswa();
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            // $data['siswa'] = $this->Model->getSiswa();
+            $data['siswa'] = $this->db->query('call getSiswa()')->result_array();
 
-            $this->template->load('admin/template', 'admin/siswa/siswa', $data);
+
+            $this->template->load('page/template', 'page/siswa/siswa', $data);
         }else{
             redirect('dashboard');
         }
@@ -35,12 +37,12 @@ class Siswa extends CI_Controller
     {
 	    if($this->session->userdata('level') == 'Administrator') {
         
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['siswa'] = $this->M_Admin->getSiswa();
-            $data['kelas'] = $this->M_Admin->getAllKelas();
-            $data['spp'] = $this->M_Admin->getAllSpp();
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            $data['siswa'] = $this->Model->getSiswa();
+            $data['kelas'] = $this->Model->getAllKelas();
+            $data['spp'] = $this->Model->getAllSpp();
 
             $this->form_validation->set_rules('nisn', 'NISN', 'required|trim|numeric|integer|is_unique[siswa.nisn]|min_length[10]|max_length[10]', [
                 'required' => 'NISN harus diisi!',
@@ -84,10 +86,10 @@ class Siswa extends CI_Controller
 
             if ($this->form_validation->run() == false) {
                 
-                $this->template->load('admin/template', 'admin/siswa/tambahsiswa', $data);
+                $this->template->load('page/template', 'page/siswa/tambahsiswa', $data);
             } 
             else {
-                $this->M_Admin->tambah_siswa();
+                $this->Model->tambah_siswa();
                 $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data siswa berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
                 redirect('siswa');
@@ -102,13 +104,13 @@ class Siswa extends CI_Controller
     {
 	    if($this->session->userdata('level') == 'Administrator') {
         
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['detail'] = $this->M_Admin->getAllSiswa($nisn);
-            $data['siswa'] = $this->M_Admin->getSiswa();
-            $data['kelas'] = $this->M_Admin->getAllKelas();
-            $data['spp'] = $this->M_Admin->getAllSpp();
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            $data['detail'] = $this->Model->getAllSiswa($nisn);
+            $data['siswa'] = $this->Model->getSiswa();
+            $data['kelas'] = $this->Model->getAllKelas();
+            $data['spp'] = $this->Model->getAllSpp();
             
             $this->form_validation->set_rules('nisn', 'NISN', 'required|trim|numeric|integer|min_length[10]|max_length[10]', [
                 'required' => 'NISN harus diisi!',
@@ -150,7 +152,7 @@ class Siswa extends CI_Controller
 
             if ($this->form_validation->run() == false) {
                 
-                $this->template->load('admin/template', 'admin/siswa/ubahsiswa', $data);
+                $this->template->load('page/template', 'page/siswa/ubahsiswa', $data);
             } 
             else {
                 $data = [
@@ -166,7 +168,7 @@ class Siswa extends CI_Controller
                     'nisn' => $this->input->post('nisn', true),
                 ];
                 
-                $this->M_Admin->ubah_siswa($data, $where);
+                $this->Model->ubah_siswa($data, $where);
                 $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data siswa berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
                 redirect('siswa');
@@ -181,11 +183,11 @@ class Siswa extends CI_Controller
     {   
 	    if($this->session->userdata('level') == 'Administrator') {
 
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['detail'] = $this->M_Admin->getAllSiswa($nisn);
-            $this->template->load('admin/template', 'admin/siswa/detailsiswa', $data);
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            $data['detail'] = $this->Model->getAllSiswa($nisn);
+            $this->template->load('page/template', 'page/siswa/detailsiswa', $data);
         }else{
             redirect('dashboard');
         }
@@ -196,7 +198,7 @@ class Siswa extends CI_Controller
     {
 	    if($this->session->userdata('level') == 'Administrator') {
 
-            $this->M_Admin->delete_siswa($nisn);
+            $this->Model->delete_siswa($nisn);
             $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data siswa berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
             redirect('siswa');

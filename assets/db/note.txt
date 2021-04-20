@@ -1,0 +1,206 @@
+note :
+
+-- show / hide datatables (quest)
+-- daterangepicker datatables (quest)
+-- ubah petugas old password ?? (quest)
+-- if free create 404 page (quest)
+
+
+-- template.php 
+// var tbl_laporan = 
+// $('#table-laporan').DataTable({
+// "paging": true,
+// "lengthChange": false,
+// "searching": true,
+// "ordering": false,
+// "info": true,
+// "autoWidth": false,
+// "pageLength": 5,
+// "language": {
+//     "info": 'Menampilkan _START_ ke _END_ dari _TOTAL_ jumlah data',
+//     "infoEmpty": 'Menampilkan 0 ke 0 dari 0 jumlah data',
+//     "infoFiltered": '(Difilter dari _MAX_ jumlah data)',
+//     "zeroRecords": 'Data Kosong',
+//     "emptyTable": 'Data Kosong',
+//     "search": 'Pencarian :',
+//     "paginate": {
+//         "next": '&raquo',
+//         "previous": '&laquo',
+//     }
+// }
+// });
+        
+-- laporan.php 
+<!-- <div class="table-responsive">
+    <table id="table-laporan" class="table table-bordered">
+        <thead>
+            <tr class="text-center">
+                <th>Tanggal Pembayaran</th>        
+                <th>NISN</th>
+                <th>Atas Nama</th>
+                <th>SPP</th>
+                <th>Petugas</th>
+                <th>Jumlah Bayar</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($datafilter as $row) { ?>
+            <tr class="text-center">
+                <td><?= date_indo($row['tgl_bayar']); ?></td>
+                <td><?= $row['nisn']; ?></td>                    
+                <td><?= $row['nama_siswa']; ?></td>                    
+                <td><?= $row['bulan_dibayar'].' - '.$row['tahun_dibayar']; ?></td>
+                <td><?= $row['nama_petugas']; ?></td>
+                <td>Rp <?= number_format($row['jumlah_bayar'], 0, ',', '.'); ?></td>
+                <td>
+                    <a class="btn btn-info p-2 mt-1" href="<?= base_url('laporan/cetak_nota/') . $row['id_pembayaran']; ?>">
+                        Cetak Kwitansi
+                    </a>
+                </td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div> -->
+
+-- register.php
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title><?= $title; ?></title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="<?= base_url('assets/'); ?>fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/'); ?>bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/'); ?>style.css">
+</head>
+<body class="register-page">
+<div class="register-box">
+
+  <div class="card">
+    <div class="card-body register-card-body text-center">
+    
+    <div class="app-logo mb-3">
+            <span class="fas fa-user-graduate"></span>
+            <div class="app-text mx-3"> <?= $title; ?></div>
+        </div>
+
+      <form action="<?= base_url('auth/registration'); ?>" method="post">
+      <?= $this->session->flashdata('message'); ?>  
+      <div class="input-group mb-3" data-validate = "Nama Petugas diperlukan!">
+          <input type="text" class="form-control" placeholder="Nama Lengkap" id="nama_petugas" name="nama_petugas" autocomplete="off">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <?= form_error('nama_petugas', '<small class="text-danger m-auto">', '</small>'); ?>
+      <div class="input-group mb-3" data-validate = "Username diperlukan!">
+          <input type="text" class="form-control" placeholder="Username" id="username" name="username" autocomplete="off">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <?= form_error('username', '<small class="text-danger m-auto">', '</small>'); ?>
+        <div class="input-group mb-3" data-validate = "Password diperlukan!">
+          <input type="password" class="form-control" placeholder="Password" id="password" name="password" autocomplete="off">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <?= form_error('password', '<small class="text-danger m-auto">', '</small>'); ?>
+        <div class="input-group mb-3" data-validate = "Konfirmasi Password diperlukan!">
+          <input type="password" class="form-control" placeholder="Ulangi password" id="password_confirm" name="password_confirm" autocomplete="off">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-block btn-regis">Daftar</button>
+          </div>
+      </form>
+
+      <div class="text-center mt-3">
+        <p class="btn-signin">
+          Sudah punya akun ?
+          <a href="<?= base_url('auth'); ?>">
+            Masuk Sekarang!
+          </a>
+        </p>  
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src="<?= base_url('assets/'); ?>jquery/jquery.min.js"></script>
+<script src="<?= base_url('assets/'); ?>bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+-- a href link to registration in login.php
+<!-- <div class="text-center mt-3">
+  <p class="btn-signup">
+    Belum punya akun ?
+    <a href="<?= base_url('auth/registration'); ?>">
+      Daftar Sekarang!
+    </a>
+  </p>  
+</div> -->
+
+-- registration function at auth controller
+	public function registration()
+	{
+		
+		$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[petugas.username]', [
+			'required' => 'Username diperlukan!',
+			'is_unique' => 'Username sudah tersedia, gunakan username lain!'
+			]);
+
+		$this->form_validation->set_rules('nama_petugas', 'Nama_Petugas', 'required|trim');
+			
+		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|matches[password_confirm]', [
+			'min_length' => 'Password terlalu pendek! kurang lebih harus 8 character!',
+			'matches' => 'Password tidak sama! coba lagi!'
+			]);
+			
+		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'trim|matches[password]', [
+			'matches' => 'Password tidak sama! coba lagi!'
+			]);
+				
+			if ($this->form_validation->run() == false) {
+				
+				$data['title'] = "Bayar SPP";
+				
+				$this->load->view('login/register', $data);
+			} 
+			else {
+				$this->Model->registration();
+				$this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Selamat, akun telah dibuat! Silahkan login!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+				redirect('auth');
+			}
+	}
+
+-- registration function at Model
+    public function registration()
+    {
+        $data = [
+            'username' => htmlspecialchars($this->input->post('username', true)),
+            'nama_petugas' => htmlspecialchars($this->input->post('nama_petugas', true)),
+            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+            'level' => 'Petugas',
+            'status' => 1,
+        ];
+        $this->db->insert('petugas', $data);
+    }

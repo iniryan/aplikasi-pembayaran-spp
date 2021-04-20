@@ -30,8 +30,8 @@
                 <input type="text" name="nama_kelas" id="nama_kelas" class="form-control" readonly disabled value="<?= $detail['nama_kelas']; ?>">
             </div>
             <div class="form-group">
-                <label for="tahun">SPP (Tahun)</label>
-                <input type="numeric" name="tahun" id="tahun" class="form-control" readonly disabled value="<?= $detail['tahun']; ?>">
+                <label for="tahun">SPP</label>
+                <input type="numeric" name="tahun" id="tahun" class="form-control" readonly disabled value="<?= $detail['tahun'].' / Rp '.number_format($detail['nominal'], 0, ',', '.'); ?>">
             </div>
             <div class="form-group">
                 <label for="alamat">Alamat</label>

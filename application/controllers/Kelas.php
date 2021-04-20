@@ -11,7 +11,7 @@ class Kelas extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-        $this->load->model('M_Admin');
+        $this->load->model('Model');
         $this->load->library('form_validation');
 	}
     
@@ -19,12 +19,14 @@ class Kelas extends CI_Controller
     public function index()
     {
 	    if($this->session->userdata('level') == 'Administrator') {
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['kelas'] = $this->M_Admin->getAllKelas();
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            // $data['kelas'] = $this->Model->getAllKelas();
+            $data['kelas'] = $this->db->query('call getAllKelas()')->result_array();
 
-            $this->template->load('admin/template', 'admin/kelas/kelas', $data);
+
+            $this->template->load('page/template', 'page/kelas/kelas', $data);
         }else{
             redirect('dashboard');
         }
@@ -45,15 +47,15 @@ class Kelas extends CI_Controller
         
             if ($this->form_validation->run() == false) {
 
-                $data['title'] = 'Preparation SPP';
-                $data['app'] = 'Bayar SPP';
-                $data['user'] = $this->M_Admin->datauser();
+                $data['title'] = 'Bayar SPP';
+                
+                $data['user'] = $this->Model->datauser();
 
-                $this->template->load('admin/template', 'admin/kelas/tambahkelas', $data);
+                $this->template->load('page/template', 'page/kelas/tambahkelas', $data);
             } 
             else {
 
-                $this->M_Admin->tambah_kelas();
+                $this->Model->tambah_kelas();
                 $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data kelas berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
                 redirect('kelas');
@@ -67,10 +69,10 @@ class Kelas extends CI_Controller
     public function ubah_kelas($id)
     {
         if($this->session->userdata('level') == 'Administrator') {
-            $data['title'] = 'Preparation SPP';
-            $data['app'] = 'Bayar SPP';
-            $data['user'] = $this->M_Admin->datauser();
-            $data['detail'] = $this->M_Admin->getDataKelas($id);
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            $data['detail'] = $this->Model->getDataKelas($id);
 
             $this->form_validation->set_rules('nama_kelas', 'Nama_kelas', 'required|trim', [
                 'required' => 'Nama Kelas diperlukan!'
@@ -82,7 +84,7 @@ class Kelas extends CI_Controller
 
             if ($this->form_validation->run() == false) {
                 
-                $this->template->load('admin/template', 'admin/kelas/ubahkelas', $data);
+                $this->template->load('page/template', 'page/kelas/ubahkelas', $data);
             } else {
                 $data = [
                     'kompetensi_keahlian' => htmlspecialchars($this->input->post('kompetensi_keahlian', true)),
@@ -93,7 +95,7 @@ class Kelas extends CI_Controller
                     'id_kelas' => $this->input->post('id_kelas')
                 ];
                 
-                $this->M_Admin->ubah_kelas($data, $where);
+                $this->Model->ubah_kelas($data, $where);
                 $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data kelas berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
                 redirect('kelas');
@@ -107,7 +109,7 @@ class Kelas extends CI_Controller
     public function delete_kelas($id)
     {
         if($this->session->userdata('level') == 'Administrator') {
-            $this->M_Admin->delete_kelas($id);
+            $this->Model->delete_kelas($id);
             $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data kelas berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 
             redirect('kelas');

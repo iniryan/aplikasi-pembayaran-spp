@@ -11,7 +11,7 @@ class Laporan extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-        $this->load->model('M_Admin');
+        $this->load->model('Model');
         $this->load->library('form_validation');
 	}
     
@@ -19,10 +19,12 @@ class Laporan extends CI_Controller
 	public function index()
     {
 		if($this->session->userdata('userid') != null) {
-			if($this->session->userdata('level') == 'Administrator' || $this->session->userdata('level') == 'Petugas') {
-				$data['title'] = 'Preparation SPP';
-				$data['app'] = 'Bayar SPP';
-				$this->template->load('admin/template', 'admin/laporan/laporan', $data);
+			if($this->session->userdata('level') == 'Administrator') {
+				$data['title'] = 'Bayar SPP';
+				
+				// $data['datafilter'] = $this->Model->getAllLaporan();
+
+				$this->template->load('page/template', 'page/laporan/laporan', $data);
 			}else{
 				redirect('auth');
 			}
@@ -34,7 +36,7 @@ class Laporan extends CI_Controller
     public function index_ajax($start = null)
 	{
 		if($this->session->userdata('userid') != null) {
-			if($this->session->userdata('level') == 'Administrator' || $this->session->userdata('level') == 'Petugas') {
+			if($this->session->userdata('level') == 'Administrator') {
 				$tgl = $this->input->post('tglPembayaran');
 
 				if ($tgl != null) {
@@ -54,16 +56,16 @@ class Laporan extends CI_Controller
 				$start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 				
 				// config
-				$config['base_url'] = 'http://localhost/trial_ukk/01-preparation/preparation/laporan/index_ajax';
+				$config['base_url'] = 'laporan/index_ajax';
 				$config['per_page'] = 5;
-				$config['total_rows'] = $this->M_Admin->getFilterLaporan($config['per_page'], $start, $count = true, $where1, $where2);
+				$config['total_rows'] = $this->Model->getFilterLaporan($config['per_page'], $start, $count = true, $where1, $where2);
 				
 				$this->pagination->initialize($config);
 				
 				$data['total'] = $config['total_rows'];
-				$data['datafilter'] = $this->M_Admin->getFilterLaporan($config['per_page'], $start, $count = false, $where1, $where2);
+				$data['datafilter'] = $this->Model->getFilterLaporan($config['per_page'], $start, $count = false, $where1, $where2);
 				$data['pagelinks'] = $this->pagination->create_links();
-				$this->load->view('admin/laporan/table', $data);
+				$this->load->view('page/laporan/table', $data);
 			}else{
 				redirect('auth');
 			}
@@ -75,7 +77,7 @@ class Laporan extends CI_Controller
     public function cetak()
     {
 		if($this->session->userdata('userid') != null) {
-			if($this->session->userdata('level') == 'Administrator' || $this->session->userdata('level') == 'Petugas') {
+			if($this->session->userdata('level') == 'Administrator') {
 				$tgl = $this->input->post('tglPembayaran');
 				if ($tgl) {
 					$tglpecah = explode(" - ", $tgl);
@@ -96,10 +98,10 @@ class Laporan extends CI_Controller
 					$where2 = '';
 				}
 				$data['title'] = "Laporan Pembayaran";
-				$data['datafilter'] = $this->M_Admin->getLaporan($where1, $where2)->result();
-				$data['total'] = $this->M_Admin->getLaporanTotal($where1, $where2)->row_array();
+				$data['datafilter'] = $this->Model->getLaporan($where1, $where2)->result();
+				$data['total'] = $this->Model->getLaporanTotal($where1, $where2)->row_array();
 
-				$this->load->view('admin/laporan/cetakLaporan', $data);
+				$this->load->view('page/laporan/cetakLaporan', $data);
 
 				$paper_size = 'A4';
 				$orientation = 'potrait';
@@ -120,10 +122,10 @@ class Laporan extends CI_Controller
 	public function cetak_nota($id)
     {
 		if($this->session->userdata('userid') != null) {
-			if($this->session->userdata('level') == 'Administrator' || $this->session->userdata('level') == 'Petugas') {
+			if($this->session->userdata('level') == 'Administrator') {
 				$data['title'] = "Kwitansi Pembayaran";
-				$data['kwitansi'] = $this->M_Admin->cetakNota($id);
-				$this->load->view('admin/laporan/kwitansi', $data);
+				$data['kwitansi'] = $this->Model->cetakNota($id);
+				$this->load->view('page/laporan/kwitansi', $data);
 
 				$paper_size = 'A5';
 				$orientation = 'landscape';
