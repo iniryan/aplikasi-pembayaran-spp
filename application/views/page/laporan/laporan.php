@@ -13,7 +13,7 @@
                     <div class="input-group justify-content-between">
                         <div class="col-md-4 mt-2">
                             <select name="filter" id="filter" class="custom-select form-control pt-2">
-                                <option value="">-- Pilih Semua --</option>
+                                <option value="">-- Tampilkan Semua --</option>
                                 <option value="kelas">-- Berdasarkan Kelas --</option>
                                 <option value="tanggal">-- Berdasarkan Tanggal --</option>
                                 </select><br>

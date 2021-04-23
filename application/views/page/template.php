@@ -308,10 +308,10 @@
             pageLaporan(page_url = false);
         });
         
-        $(document).on('click', '#cariKelas', function() {          
-            var kelas = $('select[name=id_kelas]').val();
-            pageLaporan(page_url = false);
-        });
+        // $(document).on('click', '#cariKelas', function() {          
+        //     var kelas = $('select[name=id_kelas]').val();
+        //     pageLaporan(page_url = false);
+        // });
 
         $(document).on('click', ".pagination li a", function () {
             var page_url = $(this).attr('href');
@@ -321,7 +321,7 @@
 
         function pageLaporan(page_url) {
             var tglPembayaran = $('[name=tglPembayaran]').val();
-            var kelas = $('select[name=id_kelas]').val();
+            // var kelas = $('select[name=id_kelas]').val();
             var link = '<?= base_url('laporan/index_ajax') ?>';
 
             if (page_url) {
@@ -333,7 +333,7 @@
                 url: link,
                 data: {
                     tglPembayaran: tglPembayaran,
-                    kelas: kelas
+                    // kelas: kelas
                 },
                 success: function (response) {
                     $('.laporan').html(response);
