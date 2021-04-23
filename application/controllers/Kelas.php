@@ -56,7 +56,7 @@ class Kelas extends CI_Controller
             else {
 
                 $this->Model->tambah_kelas();
-                $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data kelas berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil ditambahkan!</div>');
 
                 redirect('kelas');
 	    	}
@@ -96,7 +96,7 @@ class Kelas extends CI_Controller
                 ];
                 
                 $this->Model->ubah_kelas($data, $where);
-                $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data kelas berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil diubah!</div>');
 
                 redirect('kelas');
             }
@@ -110,7 +110,7 @@ class Kelas extends CI_Controller
     {
         if($this->session->userdata('level') == 'Administrator') {
             $this->Model->delete_kelas($id);
-            $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data kelas berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil dihapus!</div>');
 
             redirect('kelas');
         }else{

@@ -90,7 +90,7 @@ class Siswa extends CI_Controller
             } 
             else {
                 $this->Model->tambah_siswa();
-                $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data siswa berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data siswa berhasil ditambahkan!</div>');
 
                 redirect('siswa');
             }
@@ -169,7 +169,7 @@ class Siswa extends CI_Controller
                 ];
                 
                 $this->Model->ubah_siswa($data, $where);
-                $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data siswa berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data siswa berhasil diubah!</div>');
 
                 redirect('siswa');
             }
@@ -199,7 +199,7 @@ class Siswa extends CI_Controller
 	    if($this->session->userdata('level') == 'Administrator') {
 
             $this->Model->delete_siswa($nisn);
-            $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data siswa berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data siswa berhasil dihapus!</div>');
 
             redirect('siswa');
         }else{

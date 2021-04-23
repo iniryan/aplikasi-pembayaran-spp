@@ -54,15 +54,15 @@ class Auth extends CI_Controller {
 							$this->session->set_userdata($data);
 							redirect('dashboard');
 						}else{
-							$this->session->set_flashdata('message', '<div class="alert alert-danger mx-auto alert-dismissible fade show" role="alert">Coba lagi!! Password salah!!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+							$this->session->set_flashdata('message', '<div id="pesan" class="alert alert-danger mx-auto" role="alert">Coba lagi!! Password salah!!</div>');
 							redirect('auth');
 						}
 					}else{
 						if (password_verify($password, $user['password'])){
-							$this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show mx-auto" role="alert">Akun Anda telah diblock oleh Administator!!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+							$this->session->set_flashdata('message', '<div id="pesan" class="alert alert-danger mx-auto" role="alert">Akun Anda telah diblock oleh Administator!!</div>');
 							redirect('auth');
 						}else{
-							$this->session->set_flashdata('message', '<div class="alert alert-danger mx-auto alert-dismissible fade show" role="alert">Coba lagi!! Password salah!!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+							$this->session->set_flashdata('message', '<div id="pesan" class="alert alert-danger mx-auto" role="alert">Coba lagi!! Password salah!!</div>');
 							redirect('auth');
 						}
 					}
@@ -82,15 +82,15 @@ class Auth extends CI_Controller {
 						$this->session->set_userdata($data);
 						redirect('dashboard');
 					}else{
-						$this->session->set_flashdata('message', '<div class="alert alert-danger mx-auto alert-dismissible fade show" role="alert">Coba lagi!! Password salah!!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+						$this->session->set_flashdata('message', '<div id="pesan" class="alert alert-danger mx-auto" role="alert">Coba lagi!! Password salah!!</div>');
 						redirect('auth');
 					}
 				}else{
-					$this->session->set_flashdata('message', '<div class="alert alert-danger mx-auto alert-dismissible fade show" role="alert">Akun tidak terdaftar!! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+					$this->session->set_flashdata('message', '<div id="pesan" class="alert alert-danger mx-auto" role="alert">Akun tidak terdaftar!!</div>');
 					redirect('auth');
 				}
 			}else{
-					$this->session->set_flashdata('message', '<div class="alert alert-danger mx-auto alert-dismissible fade show" role="alert">Akun tidak terdaftar!! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+					$this->session->set_flashdata('message', '<div id="pesan" class="alert alert-danger mx-auto" role="alert">Akun tidak terdaftar!!</div>');
 					redirect('auth');
 				}
 	}	
@@ -98,7 +98,6 @@ class Auth extends CI_Controller {
 	public function logout()
 	{
 		$this->session->sess_destroy();
-		$this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Berhasil Logout!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 		redirect('auth');
 	}
 	

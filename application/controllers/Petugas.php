@@ -65,7 +65,7 @@ class Petugas extends CI_Controller
             else {
                 
                 $this->Model->tambah_petugas();
-                $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data petugas berhasil ditambahkan!</div>');
                 
                 redirect('petugas');
             }
@@ -123,7 +123,7 @@ class Petugas extends CI_Controller
                     'id_petugas' => $this->input->post('id_petugas')
                 ];
                 $this->Model->ubah_petugas($data, $where);
-                $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil diubah!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data petugas berhasil diubah!</div>');
 
                 redirect('petugas');
             }
@@ -138,7 +138,7 @@ class Petugas extends CI_Controller
         if($this->session->userdata('level') == 'Administrator') {
 
             $this->Model->delete_petugas($id);
-            $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil dihapus!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data petugas berhasil dihapus!</div>');
 
             redirect('petugas');
         }else{
@@ -152,7 +152,7 @@ class Petugas extends CI_Controller
         if($this->session->userdata('level') == 'Administrator') {
 
             $this->Model->block_petugas($id);
-            $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil diblokir!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data petugas berhasil diblokir!</div>');
 
             redirect('petugas');
         }else{
@@ -166,7 +166,7 @@ class Petugas extends CI_Controller
         if($this->session->userdata('level') == 'Administrator') {
 
             $this->Model->active_petugas($id);
-            $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data petugas berhasil diaktifkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data petugas berhasil diaktifkan!</div>');
 
             redirect('petugas');
         }else{

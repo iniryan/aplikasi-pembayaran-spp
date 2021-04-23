@@ -82,9 +82,9 @@ class Transaksi extends CI_Controller
                     $query = $this->Model->validasi($nisn, $bulan, $tahun);
                     if(!$query){
                         $this->Model->proses_pembayaran($data['user']['id_petugas']);
-                        $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Data pembayaran berhasil ditambahkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data pembayaran berhasil ditambahkan!</div>');
                     }else{
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger mx-auto alert-dismissible fade show" role="alert">Data pembayaran gagal ditambahkan! siswa sudah membayar!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-danger mx-auto" role="alert">Data pembayaran gagal ditambahkan! siswa sudah membayar!</div>');
                     }
                     redirect('transaksi');
 
@@ -102,7 +102,7 @@ class Transaksi extends CI_Controller
         if($this->session->userdata('userid') != null) {
 			if($this->session->userdata('level') == 'Administrator' || $this->session->userdata('level') == 'Petugas') {
                 $this->Model->batal_bayar($id);
-                $this->session->set_flashdata('message', '<div class="alert alert-success mx-auto alert-dismissible fade show" role="alert">Transaksi berhasil dibatalkan!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Transaksi berhasil dibatalkan!</div>');
 
                 redirect('transaksi');
             }else{

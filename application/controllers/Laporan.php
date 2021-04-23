@@ -21,7 +21,7 @@ class Laporan extends CI_Controller
 		if($this->session->userdata('userid') != null) {
 			if($this->session->userdata('level') == 'Administrator') {
 				$data['title'] = 'Bayar SPP';
-				
+				$data['kelas'] = $this->Model->getAllKelas();
 				// $data['datafilter'] = $this->Model->getAllLaporan();
 
 				$this->template->load('page/template', 'page/laporan/laporan', $data);
@@ -38,6 +38,7 @@ class Laporan extends CI_Controller
 		if($this->session->userdata('userid') != null) {
 			if($this->session->userdata('level') == 'Administrator') {
 				$tgl = $this->input->post('tglPembayaran');
+				$kelas = $this->input->post('kelas');
 
 				if ($tgl != null) {
 					$tglpecah = explode(" - ", $tgl);
@@ -47,8 +48,10 @@ class Laporan extends CI_Controller
 					$akhir = date('Y-m-d', strtotime($end));
 					$where1 = ['tgl_bayar >=' => $awal];
 					$where2 = ['tgl_bayar <=' => $akhir];
+				} elseif($kelas != null){
+					$where1 = ['id_kelas' => $kelas];
+					$where2 = '';
 				} else {
-					
 					$where1 = '';
 					$where2 = '';
 				}

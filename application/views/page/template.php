@@ -216,6 +216,9 @@
         }
         });
         
+        setTimeout(function(){$("#pesan").fadeIn('slow');}, 500);
+        setTimeout(function(){$("#pesan").fadeOut('slow');}, 2000);
+
         $(document).on('click', '#select', function() {
             var nisn = $(this).data('nisn');
             var nis = $(this).data('nis');
@@ -260,6 +263,27 @@
             return keys.indexOf(event.key) > -1
         });
 
+        $('select[name=filter] option').filter(':selected').val()
+        $('select[name=filter]').on('change', function () {
+            console.log('Changed option value ' + this.value);
+            // var target = this.value;
+            // if (target == 'kelas')
+            //     $('#kelas').prop('hidden', false);         
+            //     $('#tanggal').prop('hidden', true);         
+            // else if (target == 'tanggal')
+            //     $('#kelas').prop('hidden', true);         
+            //     $('#tanggal').prop('hidden', false);         
+            // else if (target == 'semua')
+            //     $('#kelas').prop('hidden', true);         
+            //     $('#tanggal').prop('hidden', true);         
+            
+        });
+
+        $('select[name=id_kelas] option').filter(':selected').val()
+        $('select[name=id_kelas]').on('change', function () {
+            console.log('Changed option value ' + this.value);
+        });
+
         $('#datepick').daterangepicker({
         opens: 'left',
         autoUpdateInput: false,
@@ -283,6 +307,11 @@
             var tglPembayaran = $('[name=tglPembayaran]').val();
             pageLaporan(page_url = false);
         });
+        
+        $(document).on('click', '#cariKelas', function() {          
+            var kelas = $('select[name=id_kelas]').val();
+            pageLaporan(page_url = false);
+        });
 
         $(document).on('click', ".pagination li a", function () {
             var page_url = $(this).attr('href');
@@ -292,6 +321,7 @@
 
         function pageLaporan(page_url) {
             var tglPembayaran = $('[name=tglPembayaran]').val();
+            var kelas = $('select[name=id_kelas]').val();
             var link = '<?= base_url('laporan/index_ajax') ?>';
 
             if (page_url) {
@@ -302,7 +332,8 @@
                 type: "POST",
                 url: link,
                 data: {
-                    tglPembayaran: tglPembayaran
+                    tglPembayaran: tglPembayaran,
+                    kelas: kelas
                 },
                 success: function (response) {
                     $('.laporan').html(response);

@@ -49,5 +49,11 @@
 </div>
 <script src="<?= base_url('assets/'); ?>jquery/jquery.min.js"></script>
 <script src="<?= base_url('assets/'); ?>bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).ready(function() {
+    setTimeout(function(){$("#pesan").fadeIn('slow');}, 500);
+    setTimeout(function(){$("#pesan").fadeOut('slow');}, 2000);
+  });
+</script>
 </body>
 </html>
