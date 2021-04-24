@@ -235,6 +235,7 @@
             $('#id_spp').val(id_spp);
             $('#tahun').val(tahun);
             $('#nominal').val(nominal);
+            $('#nomina').val('Rp '+nominal.toLocaleString().replace(/\,/g,'.'));
             $('#siswaModal').modal('hide');     
             $('#bulan_dibayar').prop('disabled', false);
             $('#tb-pembayaran').prop('hidden', false);     
@@ -249,6 +250,7 @@
             $('#id_spp').val('');
             $('#tahun').val('');
             $('#nominal').val('');
+            $('#nomina').val('');
             $('#bulan_dibayar').prop('disabled', true);     
             $('#tb-pembayaran').prop('hidden', true);         
             tbl_transaksi.search( '' ).draw();
@@ -266,16 +268,24 @@
         $('select[name=filter] option').filter(':selected').val()
         $('select[name=filter]').on('change', function () {
             console.log('Changed option value ' + this.value);
-            // var target = this.value;
-            // if (target == 'kelas')
-            //     $('#kelas').prop('hidden', false);         
-            //     $('#tanggal').prop('hidden', true);         
-            // else if (target == 'tanggal')
-            //     $('#kelas').prop('hidden', true);         
-            //     $('#tanggal').prop('hidden', false);         
-            // else if (target == 'semua')
-            //     $('#kelas').prop('hidden', true);         
-            //     $('#tanggal').prop('hidden', true);         
+            var target = this.value;
+            pageLaporan(false, true);
+            if (target == 'kelas'){
+                $('#kelas').prop('hidden', false);         
+                $('[name=tglPembayaran]').val('');       
+                $('#tanggal').prop('hidden', true);         
+            }
+            else if (target == 'tanggal'){
+                $('select[name=id_kelas]').val('');
+                $('#kelas').prop('hidden', true);         
+                $('#tanggal').prop('hidden', false);         
+            }
+            else if (target == ''){
+                $('select[name=id_kelas]').val('');
+                $('#kelas').prop('hidden', true);  
+                $('[name=tglPembayaran]').val('');      
+                $('#tanggal').prop('hidden', true);         
+            }
             
         });
 
@@ -308,10 +318,10 @@
             pageLaporan(page_url = false);
         });
         
-        // $(document).on('click', '#cariKelas', function() {          
-        //     var kelas = $('select[name=id_kelas]').val();
-        //     pageLaporan(page_url = false);
-        // });
+        $(document).on('click', '#cariKelas', function() {          
+            var kelas = $('select[name=id_kelas]').val();
+            pageLaporan(page_url = false);
+        });
 
         $(document).on('click', ".pagination li a", function () {
             var page_url = $(this).attr('href');
@@ -319,9 +329,9 @@
             return false;
         });
 
-        function pageLaporan(page_url) {
+        function pageLaporan(page_url, all = false) {
             var tglPembayaran = $('[name=tglPembayaran]').val();
-            // var kelas = $('select[name=id_kelas]').val();
+            var kelas = $('select[name=id_kelas]').val();
             var link = '<?= base_url('laporan/index_ajax') ?>';
 
             if (page_url) {
@@ -331,9 +341,9 @@
             $.ajax({
                 type: "POST",
                 url: link,
-                data: {
+                data: !all && {
                     tglPembayaran: tglPembayaran,
-                    // kelas: kelas
+                    kelas: kelas
                 },
                 success: function (response) {
                     $('.laporan').html(response);

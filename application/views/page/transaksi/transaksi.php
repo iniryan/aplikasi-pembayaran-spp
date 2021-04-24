@@ -63,7 +63,8 @@
                         </div>
                         <div class="form-group">
                             <label for="nominal">Jumlah Bayar</label>
-                            <input type="numeric" class="form-control" name="nominal" id="nominal" autocomplete="off" placeholder="Rp " readonly required>
+                            <input type="hidden" class="form-control" name="nominal" id="nominal" autocomplete="off" placeholder="Rp " readonly required>
+                            <input type="numeric" class="form-control" name="nomina" id="nomina" autocomplete="off" placeholder="Rp " readonly required>
                         </div>
                         <div class="form-group">
                             <button onclick="return confirm('Pembayaran akan dilakukan ?')" type="submit" class="btn btn-warning my-2">Proses Pembayaran</button>

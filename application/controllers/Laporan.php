@@ -38,8 +38,7 @@ class Laporan extends CI_Controller
 		if($this->session->userdata('userid') != null) {
 			if($this->session->userdata('level') == 'Administrator') {
 				$tgl = $this->input->post('tglPembayaran');
-				// $kelas = $this->input->post('kelas');
-
+				$kelas = $this->input->post('kelas');
 				if ($tgl != null) {
 					$tglpecah = explode(" - ", $tgl);
 					$start = $tglpecah[0];
@@ -48,12 +47,12 @@ class Laporan extends CI_Controller
 					$akhir = date('Y-m-d', strtotime($end));
 					$where1 = ['tgl_bayar >=' => $awal];
 					$where2 = ['tgl_bayar <=' => $akhir];
-				// } elseif($kelas != null){
-				// 	$where1 = ['id_kelas' => $kelas];
-				// 	$where2 = '';
+				} elseif($kelas != null){
+					$where1 = ['id_kelas' => $kelas];
+					$where2 = null;
 				} else {
-					$where1 = '';
-					$where2 = '';
+					$where1 = null;
+					$where2 = null;
 				}
 				
 				$start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -82,7 +81,8 @@ class Laporan extends CI_Controller
 		if($this->session->userdata('userid') != null) {
 			if($this->session->userdata('level') == 'Administrator') {
 				$tgl = $this->input->post('tglPembayaran');
-				if ($tgl) {
+				$kelas = $this->input->post('id_kelas');
+				if ($tgl != null) {
 					$tglpecah = explode(" - ", $tgl);
 					$start = $tglpecah[0];
 					$end = $tglpecah[1];
@@ -90,18 +90,22 @@ class Laporan extends CI_Controller
 					$akhir = date('Y-m-d', strtotime($end));
 					$where1 = ['tgl_bayar >=' => $awal];
 					$where2 = ['tgl_bayar <=' => $akhir];
-
 					$data['awal'] = $awal;
 					$data['akhir'] = $akhir;
+				} elseif ($kelas != null) {
+					$where1 = ['id_kelas' => $kelas];
+					$where2 = null;
+					$data['awal'] = $kelas;
+					$data['akhir'] = null;
 				} else {
-
-					$data['awal'] = '';
-					$data['akhir'] = '';
-					$where1 = '';
-					$where2 = '';
+					$data['awal'] = null;
+					$data['akhir'] = null;
+					$where1 = null;
+					$where2 = null;
 				}
 				$data['title'] = "Laporan Pembayaran";
 				$data['datafilter'] = $this->Model->getLaporan($where1, $where2)->result();
+				$data['kelas'] = $this->Model->getDataKelas($kelas);
 				$data['total'] = $this->Model->getLaporanTotal($where1, $where2)->row_array();
 
 				$this->load->view('page/laporan/cetakLaporan', $data);

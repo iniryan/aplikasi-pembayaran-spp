@@ -322,8 +322,10 @@ class Model extends CI_Model
         $this->db->from('pembayaran a');
         $this->db->join('petugas b', 'a.id_petugas = b.id_petugas', 'left');
         $this->db->join('siswa c', 'a.nisn = c.nisn', 'left');
-        if($where1 != null && $where2 != null){
+        if($where1 != null){
             $this->db->where($where1);
+        }
+        if($where2 != null){
             $this->db->where($where2);  
         }
         $this->db->order_by('id_pembayaran DESC');
@@ -347,9 +349,11 @@ class Model extends CI_Model
         $this->db->from('pembayaran a');
         $this->db->join('petugas b', 'a.id_petugas = b.id_petugas', 'left');
         $this->db->join('siswa c', 'a.nisn = c.nisn', 'left');
-        if($where1 != null && $where2 != null){
+        if($where1 != null){
             $this->db->where($where1);
-            $this->db->where($where2);
+        }
+        if($where2 != null){
+            $this->db->where($where2);  
         }
         $this->db->order_by('id_pembayaran DESC');
         return $this->db->get();
@@ -358,10 +362,13 @@ class Model extends CI_Model
     public function getLaporanTotal($where1, $where2)
     {
         $this->db->select('SUM(jumlah_bayar) as a');
-        $this->db->from('pembayaran');
-        if($where1 != null && $where2 != null){
+        $this->db->from('pembayaran b');
+        $this->db->join('siswa c', 'b.nisn = c.nisn', 'left');
+        if($where1 != null){
             $this->db->where($where1);
-            $this->db->where($where2);
+        }
+        if($where2 != null){
+            $this->db->where($where2);  
         }
         return $this->db->get();
     }

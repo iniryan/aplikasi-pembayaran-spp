@@ -17,7 +17,7 @@
                                 <option value="kelas">-- Berdasarkan Kelas --</option>
                                 <option value="tanggal">-- Berdasarkan Tanggal --</option>
                                 </select><br>
-                            <div class="input-group pt-2" id="kelas">
+                            <div class="input-group pt-2" id="kelas" hidden>
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="fas fa-chalkboard"></i>
@@ -33,7 +33,7 @@
                                     <button id="cariKelas" type="button" class="btn btn-primary">Cari</button>
                                 </div>
                             </div>
-                            <div class="input-group pt-2" id="tanggal">
+                            <div class="input-group pt-2" id="tanggal" hidden>
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="far fa-calendar-alt"></i>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-8 mt-2">
                             <div class="input-group">
-                                <button type="submit" class="btn btn-warning">Cetak Laporan</button>
+                                <button type="submit" onclick="this.form.target='_blank';return true;" class="btn btn-warning">Cetak Laporan</button>
                             </div>
                         </div>
                     </div>
