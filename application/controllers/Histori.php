@@ -19,7 +19,7 @@ class Histori extends CI_Controller
 	public function index()
     {
 		if($this->session->userdata('userid') != null) {
-			if($this->session->userdata('level') == 'Petugas') {
+			if($this->session->userdata('level') == 'Petugas' || $this->session->userdata('level') == 'Administrator') {
 				$data['title'] = 'Bayar SPP';			
 				$data['datafilter'] = $this->Model->getAllLaporan();
 
@@ -35,7 +35,7 @@ class Histori extends CI_Controller
 	public function cetak_nota($id)
     {
 		if($this->session->userdata('userid') != null) {
-			if($this->session->userdata('level') == 'Petugas') {
+			if($this->session->userdata('level') == 'Petugas' || $this->session->userdata('level') == 'Administrator') {
 				$data['title'] = "Kwitansi Pembayaran";
 				$data['kwitansi'] = $this->Model->cetakNota($id);
 				$this->load->view('page/laporan/kwitansi', $data);

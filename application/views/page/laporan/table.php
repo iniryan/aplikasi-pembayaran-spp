@@ -8,7 +8,6 @@
                 <th>SPP</th>
                 <th>Petugas</th>
                 <th>Jumlah Bayar</th>
-                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -20,11 +19,6 @@
                 <td><?= $row['bulan_dibayar'].' - '.$row['tahun_dibayar']; ?></td>
                 <td><?= $row['nama_petugas']; ?></td>
                 <td>Rp <?= number_format($row['jumlah_bayar'], 0, ',', '.'); ?></td>
-                <td>
-                    <a class="btn btn-info p-2 mt-1" target="_blank" href="<?= base_url('laporan/cetak_nota/') . $row['id_pembayaran']; ?>">
-                        Cetak Kwitansi
-                    </a>
-                </td>
             </tr>
             <?php } ?>
         </tbody>

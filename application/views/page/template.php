@@ -90,6 +90,14 @@
                         Pembayaran SPP
                         </a>
                     </li>
+                    <?php if($this->session->userdata('level') == 'Petugas' || $this->session->userdata('level') == 'Administrator') { ?> 
+                        <li>
+                            <a href="<?= base_url('histori');?>" class="nav-link <?php if ($menu == 'Histori' || $menu == 'histori') {echo 'active';} ?>">
+                                <span class="fas fa-history"></span>
+                                Histori Transaksi
+                            </a>
+                        </li>
+                    <?php } ?>
                     <?php if($this->session->userdata('level') == 'Administrator') { ?> 
                     <li>
                         <a href="<?= base_url('laporan');?>" class="nav-link <?php if ($menu == 'Laporan' || $menu == 'laporan') {echo 'active';} ?>">
@@ -97,14 +105,6 @@
                             Laporan
                         </a>
                     </li>
-                    <?php } ?>
-                    <?php if($this->session->userdata('level') == 'Petugas') { ?> 
-                        <li>
-                            <a href="<?= base_url('histori');?>" class="nav-link <?php if ($menu == 'Histori' || $menu == 'histori') {echo 'active';} ?>">
-                                <span class="fas fa-file-signature"></span>
-                                Histori Transaksi
-                            </a>
-                        </li>
                     <?php } ?>
                 </ul>
                 <?php } ?>
