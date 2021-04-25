@@ -31,7 +31,7 @@
                                 <td><?= $row['nama_petugas']; ?></td>
                                 <td>Rp <?= number_format($row['jumlah_bayar'], 0, ',', '.'); ?></td>
                                 <td>
-                                    <a class="btn btn-info p-2 mt-1" href="<?= base_url('histori/cetak_nota/') . $row['id_pembayaran']; ?>">
+                                    <a class="btn btn-info p-2 mt-1" target="_blank" href="<?= base_url('histori/cetak_nota/') . $row['id_pembayaran']; ?>">
                                         Cetak Kwitansi
                                     </a>
                                 </td>
