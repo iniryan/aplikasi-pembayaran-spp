@@ -1,7 +1,4 @@
 note :
-
--- daterangepicker datatables (quest)
--- cetak per kelas (quest) -> nambah where => SELECT * FROM `pembayaran` as a JOIN `siswa` as c ON a.nisn = c.nisn WHERE id_kelas = 5
 -- ubah petugas old password ?? (quest)
 -- if free create 404 page (quest)
 
