@@ -56,13 +56,13 @@
     <?php } ?>
 </div>
 
+<?php if($this->session->userdata('level') == 'Petugas') { ?>
 <div class="page-header pt-3">
     <div>
         <h1>Pembayaran Terakhir</h1>
     </div>
 </div>
 
-<?php if($this->session->userdata('level') == 'Administrator' || $this->session->userdata('level') == 'Petugas') { ?>
 <div class="row">
     <div class="col-lg">
         <div class="card">
