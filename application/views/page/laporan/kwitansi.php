@@ -3,7 +3,7 @@
 	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head><body>
     <hr style="border: 1px solid #000000" class="mt-0 p-0">
-    <h4 class="text-center mt-3" style="font-size: 18px"><b>BUKTI PEMBAYARAN SPP</b><br><p class="text-center" style="font-size: 12px;">SMK NEGERI 4 MALANG</p></h4>
+    <h4 class="text-center mt-3" style="font-size: 18px"><b>BUKTI PEMBAYARAN SPP</b><br><p class="text-center" style="font-size: 12px;"><?= $sekolah; ?></p></h4>
     <hr style="border: 1px solid #000000">
     <table class="my-2 ml-5 mr-5" style="border: none;">
         <tr>
