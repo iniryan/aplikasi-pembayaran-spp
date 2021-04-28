@@ -108,6 +108,19 @@
                     <?php } ?>
                 </ul>
                 <?php } ?>
+                <?php if($this->session->userdata('level') == 'Petugas' || $this->session->userdata('level') == 'Administrator') { ?>
+                    <div class="menu-head">
+                        <span>Pengaturan</span>
+                </div>
+                <ul class="nav-pills flex-column">
+                    <li>
+                        <a href="<?= base_url('setting');?>" class="nav-link <?php if ($menu == 'Setting' || $menu == 'setting') {echo 'active';} ?>">
+                            <span class="fas fa-cogs"></span>
+                            Pengaturan
+                        </a>
+                    </li>
+                </ul>
+                <?php } ?>
                 <div class="menu-head">
                     <span>Keluar</span>
                 </div>
@@ -170,7 +183,7 @@
 <script src="<?= base_url('assets/'); ?>datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script> 
     $(document).ready(function() {
-        $('#table-spp, #table-kelas, #table-siswa, #table-petugas, #table-siswa-modal, #table-histori-siswa, #table-histori').DataTable({
+        $('#table-spp, #table-kelas, #table-siswa, #table-petugas, #table-siswa-modal, #table-histori-siswa, #table-histori, #table-instansi').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": true,

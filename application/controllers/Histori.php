@@ -37,7 +37,7 @@ class Histori extends CI_Controller
 		if($this->session->userdata('userid') != null) {
 			if($this->session->userdata('level') == 'Petugas' || $this->session->userdata('level') == 'Administrator') {
 				$data['title'] = "Kwitansi Pembayaran";
-				$data['sekolah'] = "SMK NEGERI 4 MALANG";
+				$data['sekolah'] = "SEKOLAH MENENGAH KEJURUAN NEGERI 4 MALANG";
 				$data['kwitansi'] = $this->Model->cetakNota($id);
 				$this->load->view('page/laporan/kwitansi', $data);
 

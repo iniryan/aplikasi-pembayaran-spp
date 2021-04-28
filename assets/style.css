@@ -130,6 +130,7 @@
 	background: var(--color-main);
 	color: #ffffff;
 	overflow: hidden;
+	overflow-y: scroll;
 	z-index: 20;
 	transition: left 300ms;
 }
