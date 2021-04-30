@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Apr 2021 pada 09.50
+-- Waktu pembuatan: 27 Apr 2021 pada 04.29
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -44,32 +44,6 @@ JOIN `spp` AS c ON a.id_spp = c.id_spp WHERE a.dihapus = 0;
 END$$
 
 DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `instansi`
---
-
-CREATE TABLE `instansi` (
-  `id_instansi` int(11) NOT NULL,
-  `nama_instansi` varchar(256) NOT NULL,
-  `alias` varchar(256) NOT NULL,
-  `logo` varchar(256) NOT NULL,
-  `provinsi` varchar(256) NOT NULL,
-  `website` varchar(256) NOT NULL,
-  `email` varchar(256) NOT NULL,
-  `alamat` text NOT NULL,
-  `dipakai` int(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `instansi`
---
-
-INSERT INTO `instansi` (`id_instansi`, `nama_instansi`, `alias`, `logo`, `provinsi`, `website`, `email`, `alamat`, `dipakai`) VALUES
-(1, 'SEKOLAH MENENGAH KEJURUAN NEGERI 4 MALANG', 'SMKN 4 MALANG', 'logo-1.png', 'JAWA TIMUR', 'http://www.smkn4malang.sch.id', 'mail@smkn4malang.sch.id', 'Jl. Tanimbar No. 22 Malang 65117', 1),
-(2, 'SEKOLAH MENENGAH KEJURUAN NEGERI 8 MALANG', 'SMKN 8 MALANG', 'logo-2.png', 'JAWA TIMUR', 'https://www.smkn8malang.sch.id', 'asta@smkn8malang.sch.id', 'Jl. Teluk Pacitan, Arjosari, Kec. Blimbing, Kota Malang, Jawa Timur 65126', 0);
 
 -- --------------------------------------------------------
 
@@ -226,12 +200,6 @@ INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`, `dihapus`) VALUES
 --
 
 --
--- Indeks untuk tabel `instansi`
---
-ALTER TABLE `instansi`
-  ADD PRIMARY KEY (`id_instansi`);
-
---
 -- Indeks untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
@@ -269,12 +237,6 @@ ALTER TABLE `spp`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
-
---
--- AUTO_INCREMENT untuk tabel `instansi`
---
-ALTER TABLE `instansi`
-  MODIFY `id_instansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `kelas`
