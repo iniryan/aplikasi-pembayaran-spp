@@ -15,108 +15,152 @@ class Setting extends CI_Controller
         $this->load->library('form_validation');
 	}
     
-    //halaman kelas
+    //halaman setting
     public function index()
     {
 	    if($this->session->userdata('level') == 'Administrator') {
             $data['title'] = 'Bayar SPP';
             
             $data['user'] = $this->Model->datauser();
-            // $data['kelas'] = $this->Model->getAllKelas();
-            $data['kelas'] = $this->db->query('call getAllKelas()')->result_array();
+            $data['instansi'] = $this->Model->getInstansi();
 
-
-            $this->template->load('page/template', 'page/setting/setting', $data);
+            $this->template->load('page/template', 'page/setting/instansi', $data);
         }else{
             redirect('dashboard');
         }
     }
 
-    //tambah kelas
-    // public function tambah_kelas()
-    // {
-    //     if($this->session->userdata('level') == 'Administrator') {
-    //         $this->form_validation->set_rules('nama_kelas', 'Nama_Kelas', 'required|trim|is_unique[kelas.nama_kelas]', [
-    //             'required' => 'Nama Kelas diperlukan!',
-    //             'is_unique' => 'Nama Kelas sudah tersedia, gunakan nama kelas lain!'
-    //         ]);
+    //tambah instansi
+    public function tambah_instansi()
+    {
+        if($this->session->userdata('level') == 'Administrator') {
+            $this->form_validation->set_rules('nama_instansi', 'Nama_Instansi', 'required|trim|is_unique[instansi.nama_instansi]', [
+                'required' => 'Nama Intansi diperlukan!',
+                'is_unique' => 'Nama Instansi sudah tersedia, gunakan nama instansi lain!'
+            ]);
 
-    //         $this->form_validation->set_rules('kompetensi_keahlian', 'Kompetensi_Keahlian', 'required|trim', [
-    //             'required' => 'Kompetensi Keahlian diperlukan!',
-    //         ]);
-        
-    //         if ($this->form_validation->run() == false) {
-
-    //             $data['title'] = 'Bayar SPP';
-                
-    //             $data['user'] = $this->Model->datauser();
-
-    //             $this->template->load('page/template', 'page/kelas/tambahkelas', $data);
-    //         } 
-    //         else {
-
-    //             $this->Model->tambah_kelas();
-    //             $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil ditambahkan!</div>');
-
-    //             redirect('kelas');
-	//     	}
-    //     }else{
-    //         redirect('dashboard');
-    //     }
-    // }
-
-    //ubah kelas
-    // public function ubah_kelas($id)
-    // {
-    //     if($this->session->userdata('level') == 'Administrator') {
-    //         $data['title'] = 'Bayar SPP';
+            $this->form_validation->set_rules('alias', 'Alias', 'required|trim', [
+                'required' => 'Alias diperlukan!',
+            ]);
             
-    //         $data['user'] = $this->Model->datauser();
-    //         $data['detail'] = $this->Model->getDataKelas($id);
+            $this->form_validation->set_rules('provinsi', 'Provinsi', 'required|trim', [
+                'required' => 'Provinsi diperlukan!',
+            ]);
 
-    //         $this->form_validation->set_rules('nama_kelas', 'Nama_Kelas', 'required|trim', [
-    //             'required' => 'Nama Kelas diperlukan!'
-    //         ]);
+            $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[instansi.email]', [
+                'is_unique' => 'Email sudah digunakan, Masukkan email lain!',
+                'required' => 'Email diperlukan!',
+            ]);
 
-    //         $this->form_validation->set_rules('kompetensi_keahlian', 'Kompetensi_Keahlian', 'required|trim', [
-    //             'required' => 'Kompetensi Keahlian diperlukan!',
-    //         ]);
+            $this->form_validation->set_rules('website', 'Website', 'required|trim|is_unique[instansi.website]', [
+                'is_unique' => 'Website sudah digunakan, Masukkan website lain!',
+                'required' => 'Website diperlukan!',
+            ]);
+        
+            if ($this->form_validation->run() == false) {
 
-    //         if ($this->form_validation->run() == false) {
+                $data['title'] = 'Bayar SPP';
                 
-    //             $this->template->load('page/template', 'page/kelas/ubahkelas', $data);
-    //         } else {
-    //             $data = [
-    //                 'kompetensi_keahlian' => htmlspecialchars($this->input->post('kompetensi_keahlian', true)),
-    //                 'nama_kelas' => htmlspecialchars($this->input->post('nama_kelas', true)),
-    //             ];
+                $data['user'] = $this->Model->datauser();
 
-    //             $where = [
-    //                 'id_kelas' => $this->input->post('id_kelas')
-    //             ];
+                $this->template->load('page/template', 'page/setting/tambah_instansi', $data);
+            } 
+            else {
+
+                $this->Model->tambah_instansi();
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil ditambahkan!</div>');
+
+                redirect('setting');
+	    	}
+        }else{
+            redirect('dashboard');
+        }
+    }
+
+    //ubah instansi
+    public function ubah_instansi($id)
+    {
+        if($this->session->userdata('level') == 'Administrator') {
+            $data['title'] = 'Bayar SPP';
+            
+            $data['user'] = $this->Model->datauser();
+            $data['detail'] = $this->Model->getDataInstansi($id);
+
+            $this->form_validation->set_rules('nama_instansi', 'Nama_Instansi', 'required|trim', [
+                'required' => 'Nama Intansi diperlukan!',
+            ]);
+
+            $this->form_validation->set_rules('alias', 'Alias', 'required|trim', [
+                'required' => 'Alias diperlukan!',
+            ]);
+            
+            $this->form_validation->set_rules('provinsi', 'Provinsi', 'required|trim', [
+                'required' => 'Provinsi diperlukan!',
+            ]);
+
+            $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
+                'required' => 'Email diperlukan!',
+            ]);
+
+            $this->form_validation->set_rules('website', 'Website', 'required|trim', [
+                'required' => 'Website diperlukan!',
+            ]);
+            
+            $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+                'required' => 'Alamat diperlukan!',
+            ]);
+
+            if ($this->form_validation->run() == false) {
                 
-    //             $this->Model->ubah_kelas($data, $where);
-    //             $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil diubah!</div>');
+                $this->template->load('page/template', 'page/setting/ubah_instansi', $data);
+            } else {
+                $data = [
+                    'nama_instansi' => $this->input->post('nama_instansi'),
+                    'alias' => $this->input->post('alias'),
+                    'email' => htmlspecialchars($this->input->post('email', true)),            
+                    'website' => htmlspecialchars($this->input->post('website', true)),            
+                    'provinsi' => htmlspecialchars($this->input->post('provinsi', true)),            
+                    'alamat' => htmlspecialchars($this->input->post('alamat', true)),
+                ];
 
-    //             redirect('kelas');
-    //         }
-    //     }else{
-    //             redirect('dashboard');
-    //     }
-    // }
+                $where = [
+                    'id_instansi' => $this->input->post('id_instansi')
+                ];
+                
+                $this->Model->ubah_instansi($data, $where);
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil diubah!</div>');
 
-    //delete kelas
-    // public function delete_kelas($id)
-    // {
-    //     if($this->session->userdata('level') == 'Administrator') {
-    //         $this->Model->delete_kelas($id);
-    //         $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil dihapus!</div>');
+                redirect('setting');
+            }
+        }else{
+                redirect('dashboard');
+        }
+    }
 
-    //         redirect('kelas');
-    //     }else{
-    //         redirect('dashboard');
-    //     }
-    // }
+    //delete instansi
+    public function delete_instansi($id)
+    {
+        if($this->session->userdata('level') == 'Administrator') {
+            $this->Model->delete_instansi($id);
+            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil dihapus!</div>');
+
+            redirect('setting');
+        }else{
+            redirect('dashboard');
+        }
+    }
+
+    public function set_instansi($id)
+    {
+        if($this->session->userdata('level') == 'Administrator') {
+            $this->Model->set_instansi($id);
+            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil diset!</div>');
+
+            redirect('setting');
+        }else{
+            redirect('dashboard');
+        }
+    }
 
 }
 ?>

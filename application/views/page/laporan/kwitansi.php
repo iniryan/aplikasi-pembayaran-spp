@@ -2,9 +2,8 @@
     <title><?= $title; ?></title>
 	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head><body>
-    <!-- <hr style="border: 1px solid #000000" class="mt-0 p-0"> -->
-    <img src="assets/img/logo-smkn4-removebg-blackwhite.png" alt="logo_instansi" width="50px" class="ml-3" style="position: absolute; top: 8px;">
-    <h5 style="line-height: 1.6; font-weight: bold; font-size: 14px" class="text-center mt-1 mb-2">BUKTI PEMBAYARAN SPP<br><?= $sekolah; ?><br>Jl. Tanimbar No. 22 Malang 65117 Telp. (0341) 363099</h5>
+    <img src="assets/img/<?= $sekolah['logo']; ?>" alt="logo_instansi" width="60px" class="ml-3" style="position: absolute; top: 0px;">
+    <h5 style="line-height: 1.6; font-weight: bold; font-size: 14px" class="text-center mt-1 mb-2">BUKTI PEMBAYARAN SPP<br><?= $sekolah['nama_instansi']; ?><br><?= $sekolah['alamat']; ?></h5>
     <hr style="border: 1px solid #000000">
     <table class="my-2 ml-5 mr-5" style="border: none;">
         <tr>

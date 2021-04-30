@@ -12,6 +12,14 @@ DAN UNTUK ALASAN LAINNYA SAYA UBAH KARENA PADA TABLE PEMBAYARAN KITA SUDAH MENGA
 UNTUK TABLE SISWA DAN UNTUK TABLE SPP LANGSUNG MENGAMBIL DENGAN ID_SPP.
 
 
+<?php $sekolah = $this->db->get_where('instansi', ['dipakai' => 1])->row_array(); ?>
+<?php if(!empty($sekolah['logo'])) : ?>
+    <img src="<?= base_url('assets/img/').$sekolah['logo'] ; ?>" width="30px" alt="logo">
+<?php endif; ?>
+<div class="brand-text ml-2"> <?= $sekolah['alias']; ?></div>
+
+-- di style.css font-size: 14px; /*comment letter-spacing*/
+
 -- template.php 
 // var tbl_laporan = 
 // $('#table-laporan').DataTable({

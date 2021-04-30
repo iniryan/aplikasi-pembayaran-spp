@@ -21,6 +21,7 @@ class Laporan extends CI_Controller
 		if($this->session->userdata('userid') != null) {
 			if($this->session->userdata('level') == 'Administrator') {
 				$data['title'] = 'Bayar SPP';
+				
 				$data['kelas'] = $this->Model->getAllKelas();
 				// $data['datafilter'] = $this->Model->getAllLaporan();
 
@@ -104,6 +105,7 @@ class Laporan extends CI_Controller
 					$where2 = null;
 				}
 				$data['title'] = "Laporan Pembayaran";
+				$data['sekolah'] = $this->Model->getSetInstansi();
 				$data['datafilter'] = $this->Model->getLaporan($where1, $where2)->result();
 				$data['kelas'] = $this->Model->getDataKelas($kelas);
 				$data['total'] = $this->Model->getLaporanTotal($where1, $where2)->row_array();
@@ -125,31 +127,6 @@ class Laporan extends CI_Controller
 			redirect('auth');
 		}
     }
-
-	public function cetak_nota($id)
-    {
-		if($this->session->userdata('userid') != null) {
-			if($this->session->userdata('level') == 'Administrator') {
-				$data['title'] = "Kwitansi Pembayaran";
-				$data['sekolah'] = "SEKOLAH MENENGAH KEJURUAN NEGERI 4 MALANG";
-				$data['kwitansi'] = $this->Model->cetakNota($id);
-				$this->load->view('page/laporan/kwitansi', $data);
-
-				$paper_size = 'A5';
-				$orientation = 'landscape';
-				$html = $this->output->get_output();
-				$this->dompdf->set_paper($paper_size, $orientation);
-
-				$this->dompdf->load_html($html);
-				$this->dompdf->render();
-				$this->dompdf->stream("Kwitansi Pembayaran.pdf", array('Attachment' => 0));
-			}else{
-				redirect('auth');
-			}
-		}else{
-			redirect('auth');
-		}  
-	}
     
 }
 ?>

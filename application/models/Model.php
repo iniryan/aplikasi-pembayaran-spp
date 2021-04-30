@@ -373,5 +373,83 @@ class Model extends CI_Model
         return $this->db->get();
     }
 
+    //ambil data instansi
+    public function getInstansi()
+    {
+        return $this->db->get('instansi')->result_array();
+    }
+
+    public function getDataInstansi($id)
+    {
+        return $this->db->get_where('instansi', ['id_instansi' => $id])->row_array();
+    }
+    
+    public function getSetInstansi()
+    {
+        return $this->db->get_where('instansi', ['dipakai' => 1])->row_array();
+    }
+
+    public function tambah_instansi()
+    {
+        $upload_image = $_FILES['logo']['name'];
+
+        if($upload_image){
+            $config['allowed_types'] = 'gif|jpg|jpeg|png';
+            $config['upload_path'] = './assets/img/';
+            $config['file_name'] = 'logo-';
+
+            $this->load->library('upload', $config);
+
+            if($this->upload->do_upload('logo')){
+                $image = $this->upload->data('file_name');
+            } else {
+                $image = null;
+            }
+        }
+
+        $data = [
+            'nama_instansi' => $this->input->post('nama_instansi'),
+            'alias' => $this->input->post('alias'),
+            'email' => htmlspecialchars($this->input->post('email', true)),            
+            'website' => htmlspecialchars($this->input->post('website', true)),            
+            'provinsi' => htmlspecialchars($this->input->post('provinsi', true)),
+            'alamat' => htmlspecialchars($this->input->post('alamat', true)),
+            'logo' => $image
+            
+        ];
+        $this->db->insert('instansi', $data);
+    }
+
+    public function ubah_instansi($data, $where)
+    {
+        $upload_image = $_FILES['logo']['name'];
+
+        if($upload_image){
+            $config['allowed_types'] = 'gif|jpg|jpeg|png';
+            $config['upload_path'] = './assets/img/';
+            $config['file_name'] = 'logo-';
+
+            $this->load->library('upload', $config);
+
+            if($this->upload->do_upload('logo')){
+                $image = $this->upload->data('file_name');
+                $this->db->where($where)->set('logo', $image)->update('instansi');
+            }
+        }
+
+        return $this->db->where($where)->set($data)->update('instansi');
+    }
+
+    public function delete_instansi($id)
+    {
+        return $this->db->delete('instansi', ['id_instansi' => $id]);
+    }
+    
+    public function set_instansi($id)
+    {
+        $this->db->where('dipakai', 1)->set('dipakai', 0)->update('instansi');
+        return $this->db->where('id_instansi', $id)->set('dipakai', 1)->update('instansi');
+    }
+
 }
 ?>

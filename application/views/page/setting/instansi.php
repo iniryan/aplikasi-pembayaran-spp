@@ -1,6 +1,6 @@
 <div class="page-header">
     <div>
-        <h1>Pengaturan</h1>
+        <h1>Pengaturan Instansi</h1>
     </div>
 </div>
 
@@ -31,20 +31,21 @@
                         </thead>
                         <tbody>
                         <?php $no = 1;
-                            foreach ($kelas as $row) { ?>
+                            foreach ($instansi as $row) { ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $row['nama_kelas']; ?></td>
-                                <td><?= $row['kompetensi_keahlian']; ?></td>             
+                                <td><?= $row['nama_instansi']; ?></td>
+                                <td class="text-center"><img src="<?= base_url('assets/img/').$row['logo']; ?>" alt="logo" width="60px"></td>             
                                 <td>
-                                <!-- id_instansi -->
-                                    <a href="<?= base_url('setting/set_instansi/') . $row['id_kelas']; ?>">
-                                        <button class="btn btn-success p-2 mt-1">Dipakai ?</button>
-                                    </a>
-                                    <a href="<?= base_url('setting/ubah_instansi/') . $row['id_kelas']; ?>">
+                                    <?php if($row['dipakai'] != 1) { ?>
+                                        <a href="<?= base_url('setting/set_instansi/') . $row['id_instansi']; ?>">
+                                            <button class="btn btn-success p-2 mt-1">Dipakai ?</button>
+                                        </a>
+                                    <?php } ?>
+                                    <a href="<?= base_url('setting/ubah_instansi/') . $row['id_instansi']; ?>">
                                         <button class="btn btn-info p-2 mt-1">Ubah</button>
                                     </a>
-                                    <a href="<?= base_url('setting/delete_instansi/') . $row['id_kelas']; ?>">
+                                    <a href="<?= base_url('setting/delete_instansi/') . $row['id_instansi']; ?>">
                                         <button onclick="return confirm('Anda yakin akan menghapus instansi ini ?')" class="btn btn-danger p-2 mt-1 text-md">Hapus</button>
                                     </a>
                                 </td>                                                                

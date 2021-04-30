@@ -108,16 +108,9 @@
                                 <td><?= $row['nama_petugas']; ?></td>
                                 <td>Rp <?= number_format($row['jumlah_bayar'], 0, ',', '.'); ?></td>
                                 <td>
-                                    <?php if($this->session->userdata('level') == 'Administrator') { ?>
-                                        <a class="btn btn-info p-2 mt-1" target="_blank" href="<?= base_url('laporan/cetak_nota/') . $row['id_pembayaran']; ?>">
-                                            Cetak
-                                        </a>
-                                    <?php } ?>
-                                    <?php if($this->session->userdata('level') == 'Petugas') { ?>
-                                        <a class="btn btn-info p-2 mt-1" target="_blank" href="<?= base_url('histori/cetak_nota/') . $row['id_pembayaran']; ?>">
-                                            Cetak
-                                        </a>
-                                    <?php } ?>
+                                    <a class="btn btn-info p-2 mt-1" target="_blank" href="<?= base_url('histori/cetak_nota/') . $row['id_pembayaran']; ?>">
+                                        Cetak
+                                    </a>
                                     <a onclick="return confirm('Anda yakin akan membatalkan transaksi siswa ini ?')" class="btn btn-danger p-2 mt-1" href="<?= base_url('transaksi/batal/') . $row['id_pembayaran']; ?>">
                                         Batal
                                     </a>

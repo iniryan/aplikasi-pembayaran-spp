@@ -2,8 +2,8 @@
 	<title><?= $title; ?></title>
 	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head><body>
-    <img src="assets/img/logo-smkn4-removebg-blackwhite.png" alt="logo_instansi" width="80px" class="" style="position: absolute; top: 5px;">
-    <h5 style="line-height: 1.6; font-weight: bold; font-size: 14px" class="text-center mt-1 mb-2">PEMERINTAH PROVINSI JAWA TIMUR<br>DINAS PENDIDIKAN<br>SEKOLAH MENENGAH KEJURUAN NEGERI 4 MALANG<br>Jl. Tanimbar No. 22 Malang 65117 Telp. (0341) 363099<br>Website: http://www.smkn4malang.sch.id email: mail@smkn4malang.sch.id</h5>
+    <img src="assets/img/<?= $sekolah['logo']; ?>" alt="logo_instansi" width="80px" class="" style="position: absolute; top: 5px;">
+    <h5 style="line-height: 1.6; font-weight: bold; font-size: 14px" class="text-center mt-1 mb-2">PEMERINTAH PROVINSI <?= $sekolah['provinsi']; ?><br>DINAS PENDIDIKAN<br><?= $sekolah['nama_instansi']; ?><br><?= $sekolah['alamat']; ?><br>Website: <?= $sekolah['website']; ?> email: <?= $sekolah['email']; ?></h5>
     <hr style="border: 1px solid #000000">
     <h4 class="text-center mt-2 mb-3" style="font-size: 14px"><b>LAPORAN TRANSAKSI PEMBAYARAN SPP</b></h4>
     <?php if ( $awal != null && $akhir != null) { ?>

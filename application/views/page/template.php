@@ -108,7 +108,7 @@
                     <?php } ?>
                 </ul>
                 <?php } ?>
-                <?php if($this->session->userdata('level') == 'Petugas' || $this->session->userdata('level') == 'Administrator') { ?>
+                <?php if($this->session->userdata('level') == 'Administrator') { ?>
                     <div class="menu-head">
                         <span>Pengaturan</span>
                 </div>
