@@ -35,7 +35,7 @@
                 <td style="font-size: 12px">Rp <?= number_format($total['a'], 0, ',', '.'); ?></td>
             </tr>
 	</table>
-    <p class="text-right mt-2 mb-3" style="font-size: 12px"><b>Malang, <?= date('d F Y', time()); ?></b></p>
+    <p class="text-right mt-2 mb-3" style="font-size: 12px"><b>Malang, <?= date_indo(date('Y-m-d')); ?></b></p>
     <p class="text-right" style="margin-top: 5rem; font-size: 12px"><b>(<?= $this->session->userdata('nama_petugas'); ?>)</b></p>
     <?php if ($awal != null && $akhir == null) { ?>
         <p class="text-left pt-3 mt-2 mb-3" style="font-size: 12px"><b>Catatan : </b></p>

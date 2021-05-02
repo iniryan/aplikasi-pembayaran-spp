@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <td style="font-size: 12px; color: rgba(0,0,0,0.6);" class="mt-5 text-left"><b>CATATAN : </b></td>
-            <td style="font-size: 12px; color: rgba(0,0,0,0.6);" class="mt-5 text-right"><b>Malang, <?= date('d F Y', time()); ?></b></td>
+            <td style="font-size: 12px; color: rgba(0,0,0,0.6);" class="mt-5 text-right"><b>Malang, <?= date_indo(date('Y-m-d')); ?></b></td>
         </tr>
         <tr>
             <td style="font-size: 12px; color: rgba(0,0,0,0.6);" class="mt-2 text-left">BUKTI PEMBAYARAN HARAP DISIMPAN DENGAN BAIK.</td>
