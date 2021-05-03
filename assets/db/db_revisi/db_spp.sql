@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Apr 2021 pada 09.50
+-- Waktu pembuatan: 03 Bulan Mei 2021 pada 10.54
 -- Versi server: 10.4.10-MariaDB
 -- Versi PHP: 7.3.12
 
@@ -92,11 +92,12 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kompetensi_keahlian`, `dihapus`)
 (1, 'XII RPL A', 'Rekayasa Perangkat Lunak', 0),
 (2, 'XII RPL B', 'Rekayasa Perangkat Lunak', 0),
 (5, 'XII RPL C', 'Rekayasa Perangkat Lunak', 0),
-(8, 'XII MM A', 'Multimedia', 1),
-(9, 'XII MM C', 'Multimedia', 1),
-(10, 'XII MM B', 'Multimedia', 1),
-(11, 'XII TKJ A', 'Teknik Komputer Jaringan', 1),
-(12, 'XII TKJ B', 'Teknik Komputer Jaringan', 1);
+(8, 'XII MM A', 'Multimedia', 0),
+(9, 'XII MM C', 'Multimedia', 0),
+(10, 'XII MM B', 'Multimedia', 0),
+(11, 'XII TKJ A', 'Teknik Komputer Jaringan', 0),
+(12, 'XII TKJ B', 'Teknik Komputer Jaringan', 0),
+(13, 'XII TKJ C', 'Teknik Komputer Jaringan', 0);
 
 -- --------------------------------------------------------
 
@@ -213,13 +214,7 @@ CREATE TABLE `spp` (
 INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`, `dihapus`) VALUES
 (1, 2021, 250000, 0),
 (2, 2019, 250000, 0),
-(3, 2018, 300000, 0),
-(9, 2017, 500000, 1),
-(36, 2016, 300000, 1),
-(37, 2020, 250000, 1),
-(38, 2015, 200000, 1),
-(39, 2022, 210000, 0),
-(40, 2014, 200000, 1);
+(3, 2018, 300000, 0);
 
 --
 -- Indexes for dumped tables
@@ -280,13 +275,13 @@ ALTER TABLE `instansi`
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT untuk tabel `petugas`
