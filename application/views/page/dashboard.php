@@ -15,7 +15,7 @@
                     </div>
                     <div class="pt-2">
                         <p class="text-center font-weight-bold title-card">Data Petugas</p>
-                    <a href="<?= base_url('petugas') ?>" class="btn btn-light w-100 py-2">Lihat Semua</a>
+                    <a href="<?= base_url('petugas') ?>" class="btn btn-blue w-100 py-2">Lihat Semua</a>
                 </div>
             </div>
         </div>
@@ -29,12 +29,7 @@
                     </div>
                     <div class="pt-2">
                         <p class="text-center font-weight-bold title-card">Data Transaksi Masuk</p>
-                        <?php if($this->session->userdata('level') == 'Administrator') { ?>                   
-                            <a href="<?= base_url('laporan') ?>" class="btn btn-light w-100 py-2">Lihat Semua</a>
-                        <?php } ?>
-                        <?php if($this->session->userdata('level') == 'Petugas') { ?>                   
-                            <a href="<?= base_url('histori') ?>" class="btn btn-light w-100 py-2">Lihat Semua</a>
-                        <?php } ?>                   
+                    <a href="<?= base_url('histori') ?>" class="btn btn-blue w-100 py-2">Lihat Semua</a>
                 </div>
             </div>
         </div>
@@ -48,7 +43,7 @@
                     </div>
                     <div class="pt-2">
                         <p class="text-center font-weight-bold title-card">Data Siswa</p>
-                    <a href="<?= base_url('siswa') ?>" class="btn btn-light w-100 py-2">Lihat Semua</a>
+                    <a href="<?= base_url('siswa') ?>" class="btn btn-blue w-100 py-2">Lihat Semua</a>
                 </div>
             </div>
         </div>

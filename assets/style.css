@@ -310,9 +310,18 @@ main {
 	text-align: center;
 }
 
-.btn-light:hover {
+.btn-blue {
 	background: #007bff;
 	color: #ffffff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+	transition: box-shadow 0.3s ease-in-out;
+}
+
+.btn-blue:hover {
+	background: #f8f9fa;
+	color: #000000;
+	font-weight: 700;
+	box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
 }
 
 @media only screen and (max-width: 1124px) {
