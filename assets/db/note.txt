@@ -1,6 +1,20 @@
 note :
--- ubah petugas old password ?? (quest)
--- if free create 404 page (quest)
+
+Testing :
+
+SEKOLAH MENENGAH KEJURUAN 6 MALANG
+SMKN 6 MALANG
+https://smkn6malang.sch.id/
+Jl. Raya Ki Ageng Gribig No.28, Madyopuro, Kec. Kedungkandang, Kota Malang, Jawa Timur 65139
+mail : info@smkn6malang.sch.id
+
+
+
+
+
+
+
+
 
 ALASAN MENGAPA MENGUBAH RELASI NYA -> KARENA KETIKA SEORANG SISWA DIUBAH SPPNYA UNTUK PEMBAYARAN TAHUN SELANJUTNYA,
 PADA TABEL PEMBAYARAN RELASI AKAN MENJADI SPP -> SISWA -> PEMBAYARAN. JADI KETIKA RELASI SPP -> SISWA -> PEMBAYARAN 
