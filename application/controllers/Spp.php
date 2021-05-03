@@ -36,12 +36,12 @@ class Spp extends CI_Controller
     public function tambah_spp()
     {
         if($this->session->userdata('level') == 'Administrator') {
-            $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|min_length[4]|max_length[4]|integer', [
+            $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|min_length[4]|max_length[4]|integer|is_unique[spp.tahun]', [
                 'required' => 'Tahun harus diisi!',
                 'integer' => 'Tahun harus berupa bilangan bulat',
     			'min_length' => 'Tahun kurang lebih harus 4 character!',
     			'max_length' => 'Tahun kurang lebih harus 4 character!',
-
+                'is_unique' => 'Tahun sudah tersedia, gunakan tahun lain!'
             ]);
 
             $this->form_validation->set_rules('nominal', 'Nominal', 'required|trim|numeric|integer', [
