@@ -39,7 +39,7 @@
                                 <td>
                                     <?php if($row['dipakai'] != 1) { ?>
                                         <a href="<?= base_url('setting/set_instansi/') . $row['id_instansi']; ?>">
-                                            <button class="btn btn-success p-2 mt-1">Dipakai ?</button>
+                                            <button class="btn btn-success p-2 mt-1">Gunakan</button>
                                         </a>
                                     <?php } ?>
                                     <a href="<?= base_url('setting/ubah_instansi/') . $row['id_instansi']; ?>">
