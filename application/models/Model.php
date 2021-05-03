@@ -278,6 +278,11 @@ class Model extends CI_Model
         $this->db->insert('pembayaran', $data);
     }
 
+    public function detail_bayar($id)
+    {
+        return $this->db->get_where('pembayaran', ['id_pembayaran' => $id])->row_array();
+    }
+    
     public function batal_bayar($id)
     {
         return $this->db->delete('pembayaran', ['id_pembayaran' => $id]);

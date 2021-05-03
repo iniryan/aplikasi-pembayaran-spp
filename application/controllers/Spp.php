@@ -78,38 +78,41 @@ class Spp extends CI_Controller
             
             $data['user'] = $this->Model->datauser();
             $data['detail'] = $this->Model->getDataSpp($id);
+            if(!$data['detail']) {
+                redirect('auth');
+            }else{
+                $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|min_length[4]|max_length[4]|integer', [
+                    'required' => 'Tahun harus diisi!',
+                    'integer' => 'Tahun harus berupa bilangan bulat',
+                    'min_length' => 'Tahun kurang lebih harus 4 character!',
+                    'max_length' => 'Tahun kurang lebih harus 4 character!',
 
-            $this->form_validation->set_rules('tahun', 'Tahun', 'required|trim|min_length[4]|max_length[4]|integer', [
-                'required' => 'Tahun harus diisi!',
-                'integer' => 'Tahun harus berupa bilangan bulat',
-    			'min_length' => 'Tahun kurang lebih harus 4 character!',
-    			'max_length' => 'Tahun kurang lebih harus 4 character!',
+                ]);
 
-            ]);
+                $this->form_validation->set_rules('nominal', 'Nominal', 'required|trim|numeric|integer', [
+                    'required' => 'Nominal harus diisi!',
+                    'numeric'  => 'Jumlah harus berupa angka bilangan bulat',
+                    'integer'  => 'Angka harus berupa bilangan bulat, tanpa karakter lainya'
+                ]);
 
-            $this->form_validation->set_rules('nominal', 'Nominal', 'required|trim|numeric|integer', [
-                'required' => 'Nominal harus diisi!',
-                'numeric'  => 'Jumlah harus berupa angka bilangan bulat',
-                'integer'  => 'Angka harus berupa bilangan bulat, tanpa karakter lainya'
-            ]);
+                if ($this->form_validation->run() == false) {
+                    
+                    $this->template->load('page/template', 'page/spp/ubahspp', $data);
+                } else {
+                    $data = [
+                        'tahun' => $this->input->post('tahun', true),
+                        'nominal' => $this->input->post('nominal', true),
+                    ];
 
-            if ($this->form_validation->run() == false) {
-                
-                $this->template->load('page/template', 'page/spp/ubahspp', $data);
-            } else {
-                $data = [
-                    'tahun' => $this->input->post('tahun', true),
-                    'nominal' => $this->input->post('nominal', true),
-                ];
+                    $where = [
+                        'id_spp' => $this->input->post('id_spp')
+                    ];
+                    
+                    $this->Model->ubah_spp($data, $where);
+                    $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data spp berhasil diubah!</div>');
 
-                $where = [
-                    'id_spp' => $this->input->post('id_spp')
-                ];
-                
-                $this->Model->ubah_spp($data, $where);
-                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data spp berhasil diubah!</div>');
-
-                redirect('spp');
+                    redirect('spp');
+                }
             }
         }else{
             redirect('dashboard');
@@ -120,11 +123,15 @@ class Spp extends CI_Controller
     public function delete_spp($id)
     {
         if($this->session->userdata('level') == 'Administrator') {
+            $data['detail'] = $this->Model->getDataSpp($id);
+            if(!$data['detail']) {
+                redirect('auth');
+            }else{
+                $this->Model->delete_spp($id);
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data spp berhasil dihapus!</div>');
 
-            $this->Model->delete_spp($id);
-            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data spp berhasil dihapus!</div>');
-
-            redirect('spp');
+                redirect('spp');
+            }
         }else{
             redirect('dashboard');
         }

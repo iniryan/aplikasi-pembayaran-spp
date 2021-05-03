@@ -85,52 +85,55 @@ class Setting extends CI_Controller
             
             $data['user'] = $this->Model->datauser();
             $data['detail'] = $this->Model->getDataInstansi($id);
+            if(!$data['detail']) {
+                redirect('auth');
+            }else{
+                $this->form_validation->set_rules('nama_instansi', 'Nama_Instansi', 'required|trim', [
+                    'required' => 'Nama Intansi diperlukan!',
+                ]);
 
-            $this->form_validation->set_rules('nama_instansi', 'Nama_Instansi', 'required|trim', [
-                'required' => 'Nama Intansi diperlukan!',
-            ]);
-
-            $this->form_validation->set_rules('alias', 'Alias', 'required|trim', [
-                'required' => 'Alias diperlukan!',
-            ]);
-            
-            $this->form_validation->set_rules('provinsi', 'Provinsi', 'required|trim', [
-                'required' => 'Provinsi diperlukan!',
-            ]);
-
-            $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
-                'required' => 'Email diperlukan!',
-            ]);
-
-            $this->form_validation->set_rules('website', 'Website', 'required|trim', [
-                'required' => 'Website diperlukan!',
-            ]);
-            
-            $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
-                'required' => 'Alamat diperlukan!',
-            ]);
-
-            if ($this->form_validation->run() == false) {
+                $this->form_validation->set_rules('alias', 'Alias', 'required|trim', [
+                    'required' => 'Alias diperlukan!',
+                ]);
                 
-                $this->template->load('page/template', 'page/setting/ubah_instansi', $data);
-            } else {
-                $data = [
-                    'nama_instansi' => $this->input->post('nama_instansi'),
-                    'alias' => $this->input->post('alias'),
-                    'email' => htmlspecialchars($this->input->post('email', true)),            
-                    'website' => htmlspecialchars($this->input->post('website', true)),            
-                    'provinsi' => htmlspecialchars($this->input->post('provinsi', true)),            
-                    'alamat' => htmlspecialchars($this->input->post('alamat', true)),
-                ];
+                $this->form_validation->set_rules('provinsi', 'Provinsi', 'required|trim', [
+                    'required' => 'Provinsi diperlukan!',
+                ]);
 
-                $where = [
-                    'id_instansi' => $this->input->post('id_instansi')
-                ];
+                $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
+                    'required' => 'Email diperlukan!',
+                ]);
+
+                $this->form_validation->set_rules('website', 'Website', 'required|trim', [
+                    'required' => 'Website diperlukan!',
+                ]);
                 
-                $this->Model->ubah_instansi($data, $where);
-                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil diubah!</div>');
+                $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+                    'required' => 'Alamat diperlukan!',
+                ]);
 
-                redirect('setting');
+                if ($this->form_validation->run() == false) {
+                    
+                    $this->template->load('page/template', 'page/setting/ubah_instansi', $data);
+                } else {
+                    $data = [
+                        'nama_instansi' => $this->input->post('nama_instansi'),
+                        'alias' => $this->input->post('alias'),
+                        'email' => htmlspecialchars($this->input->post('email', true)),            
+                        'website' => htmlspecialchars($this->input->post('website', true)),            
+                        'provinsi' => htmlspecialchars($this->input->post('provinsi', true)),            
+                        'alamat' => htmlspecialchars($this->input->post('alamat', true)),
+                    ];
+
+                    $where = [
+                        'id_instansi' => $this->input->post('id_instansi')
+                    ];
+                    
+                    $this->Model->ubah_instansi($data, $where);
+                    $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil diubah!</div>');
+
+                    redirect('setting');
+                }
             }
         }else{
                 redirect('dashboard');
@@ -141,10 +144,15 @@ class Setting extends CI_Controller
     public function delete_instansi($id)
     {
         if($this->session->userdata('level') == 'Administrator') {
-            $this->Model->delete_instansi($id);
-            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil dihapus!</div>');
+            $data['detail'] = $this->Model->getDataInstansi($id);
+            if(!$data['detail']) {
+                redirect('auth');
+            }else{
+                $this->Model->delete_instansi($id);
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil dihapus!</div>');
 
-            redirect('setting');
+                redirect('setting');
+            }
         }else{
             redirect('dashboard');
         }
@@ -153,10 +161,15 @@ class Setting extends CI_Controller
     public function set_instansi($id)
     {
         if($this->session->userdata('level') == 'Administrator') {
-            $this->Model->set_instansi($id);
-            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil diset!</div>');
+            $data['detail'] = $this->Model->getDataInstansi($id);
+            if(!$data['detail']) {
+                redirect('auth');
+            }else{
+                $this->Model->set_instansi($id);
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data Instansi berhasil diset!</div>');
 
-            redirect('setting');
+                redirect('setting');
+            }
         }else{
             redirect('dashboard');
         }

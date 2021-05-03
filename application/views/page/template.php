@@ -116,7 +116,7 @@
                     <li>
                         <a href="<?= base_url('setting');?>" class="nav-link <?php if ($menu == 'Setting' || $menu == 'setting') {echo 'active';} ?>">
                             <span class="fas fa-cogs"></span>
-                            Pengaturan
+                            Instansi
                         </a>
                     </li>
                 </ul>
@@ -126,8 +126,8 @@
                 </div>
                 <ul class="nav-pills flex-column">
                     <li>
-                        <a href="" class="nav-link logout" data-toggle="modal" data-target="#Keluar">
-                            <span class="fas fa-power-off"></span>
+                        <a href="<?= base_url('auth/logout'); ?>" class="nav-link logout">
+                            <span class="fas fa-sign-out-alt"></span>
                             Keluar
                         </a>
                     </li>
@@ -146,22 +146,6 @@
 
         <main>
             <?= $contents; ?>
-
-            <div class="modal fade" id="Keluar" tabindex="-1" role="dialog" aria-labelledby="modalKeluar" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalKeluar">Apakah Anda Yakin Ingin Keluar ?</h5>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
-                    <a href="<?= base_url('auth/logout'); ?>" class="btn btn-danger">Keluar</a>
-                    </div>
-                </div>
-                </div>
-            </div>
-
-
         </main>
         <footer class="sticky-footer">
             <div class="container my-auto">

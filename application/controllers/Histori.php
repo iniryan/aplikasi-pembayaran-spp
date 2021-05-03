@@ -39,16 +39,20 @@ class Histori extends CI_Controller
 				$data['title'] = "Kwitansi Pembayaran";
 				$data['sekolah'] = $this->Model->getSetInstansi();
 				$data['kwitansi'] = $this->Model->cetakNota($id);
-				$this->load->view('page/laporan/kwitansi', $data);
+				if(!$data['kwitansi']) {
+					redirect('auth');
+				}else{
+					$this->load->view('page/laporan/kwitansi', $data);
 
-				$paper_size = 'A5';
-				$orientation = 'landscape';
-				$html = $this->output->get_output();
-				$this->dompdf->set_paper($paper_size, $orientation);
+					$paper_size = 'A5';
+					$orientation = 'landscape';
+					$html = $this->output->get_output();
+					$this->dompdf->set_paper($paper_size, $orientation);
 
-				$this->dompdf->load_html($html);
-				$this->dompdf->render();
-				$this->dompdf->stream("Kwitansi Pembayaran.pdf", array('Attachment' => 0));
+					$this->dompdf->load_html($html);
+					$this->dompdf->render();
+					$this->dompdf->stream("Kwitansi Pembayaran.pdf", array('Attachment' => 0));
+				}
 			}else{
 				redirect('auth');
 			}

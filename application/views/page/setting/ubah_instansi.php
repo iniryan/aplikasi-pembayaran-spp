@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label for="website">Website</label>
-                <input type="text" name="website" class="form-control" id="website" autocomplete="off" value="<?= $detail['website'] ?>" placeholder="Masukkan Website" required>
+                <input type="url" name="website" class="form-control" id="website" autocomplete="off" value="<?= $detail['website'] ?>" placeholder="Masukkan Website" required>
                 <?= form_error('website', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
             <div class="form-group">

@@ -101,10 +101,15 @@ class Transaksi extends CI_Controller
     {
         if($this->session->userdata('userid') != null) {
 			if($this->session->userdata('level') == 'Administrator' || $this->session->userdata('level') == 'Petugas') {
-                $this->Model->batal_bayar($id);
-                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Transaksi berhasil dibatalkan!</div>');
+                $data['detail'] = $this->Model->detail_bayar($id);
+				if(!$data['detail']) {
+					redirect('auth');
+				}else{
+                    $this->Model->batal_bayar($id);
+                    $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Transaksi berhasil dibatalkan!</div>');
 
-                redirect('transaksi');
+                    redirect('transaksi');
+                }
             }else{
                 redirect('auth');
             }

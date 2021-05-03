@@ -73,32 +73,35 @@ class Kelas extends CI_Controller
             
             $data['user'] = $this->Model->datauser();
             $data['detail'] = $this->Model->getDataKelas($id);
+            if(!$data['detail']) {
+                redirect('auth');
+            }else{
+                $this->form_validation->set_rules('nama_kelas', 'Nama_Kelas', 'required|trim', [
+                    'required' => 'Nama Kelas diperlukan!'
+                ]);
 
-            $this->form_validation->set_rules('nama_kelas', 'Nama_Kelas', 'required|trim', [
-                'required' => 'Nama Kelas diperlukan!'
-            ]);
+                $this->form_validation->set_rules('kompetensi_keahlian', 'Kompetensi_Keahlian', 'required|trim', [
+                    'required' => 'Kompetensi Keahlian diperlukan!',
+                ]);
 
-            $this->form_validation->set_rules('kompetensi_keahlian', 'Kompetensi_Keahlian', 'required|trim', [
-                'required' => 'Kompetensi Keahlian diperlukan!',
-            ]);
+                if ($this->form_validation->run() == false) {
+                    
+                    $this->template->load('page/template', 'page/kelas/ubahkelas', $data);
+                } else {
+                    $data = [
+                        'kompetensi_keahlian' => htmlspecialchars($this->input->post('kompetensi_keahlian', true)),
+                        'nama_kelas' => htmlspecialchars($this->input->post('nama_kelas', true)),
+                    ];
 
-            if ($this->form_validation->run() == false) {
-                
-                $this->template->load('page/template', 'page/kelas/ubahkelas', $data);
-            } else {
-                $data = [
-                    'kompetensi_keahlian' => htmlspecialchars($this->input->post('kompetensi_keahlian', true)),
-                    'nama_kelas' => htmlspecialchars($this->input->post('nama_kelas', true)),
-                ];
+                    $where = [
+                        'id_kelas' => $this->input->post('id_kelas')
+                    ];
+                    
+                    $this->Model->ubah_kelas($data, $where);
+                    $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil diubah!</div>');
 
-                $where = [
-                    'id_kelas' => $this->input->post('id_kelas')
-                ];
-                
-                $this->Model->ubah_kelas($data, $where);
-                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil diubah!</div>');
-
-                redirect('kelas');
+                    redirect('kelas');
+                }
             }
         }else{
                 redirect('dashboard');
@@ -109,10 +112,15 @@ class Kelas extends CI_Controller
     public function delete_kelas($id)
     {
         if($this->session->userdata('level') == 'Administrator') {
-            $this->Model->delete_kelas($id);
-            $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil dihapus!</div>');
+            $data['detail'] = $this->Model->getDataKelas($id);
+            if(!$data['detail']) {
+                redirect('auth');
+            }else{
+                $this->Model->delete_kelas($id);
+                $this->session->set_flashdata('message', '<div id="pesan" class="alert alert-success mx-auto" role="alert">Data kelas berhasil dihapus!</div>');
 
-            redirect('kelas');
+                redirect('kelas');
+            }
         }else{
             redirect('dashboard');
         }
